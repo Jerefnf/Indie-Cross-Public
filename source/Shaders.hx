@@ -1,9 +1,9 @@
-import openfl.filters.ColorMatrixFilter;
-import openfl.filters.BitmapFilter;
+package;
+
 import flixel.FlxG;
-import flixel.graphics.tile.FlxGraphicsShader;
+import openfl.filters.BitmapFilter;
+import openfl.filters.ColorMatrixFilter;
 import openfl.filters.ShaderFilter;
-import flixel.system.FlxAssets.FlxShader;
 
 class BloomHandler
 {
@@ -153,7 +153,7 @@ class ChromaticAberration extends FlxShader
 	}
 }
 
-class WhiteOverlayShader extends FlxGraphicsShader
+class WhiteOverlayShader extends FlxShader
 {
 	@:glFragmentSource("
 	#pragma header

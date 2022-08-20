@@ -78,7 +78,7 @@ class InspectReward extends MusicBeatSubstate
 	{
 		FlxG.sound.play(Paths.sound('cancelMenu'));
 		#if android
-		flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
+		FNFState.disableNextTransOut = true;
 		FlxG.resetState();
 		#else
 		close();

@@ -87,7 +87,7 @@ class Prompt extends MusicBeatSubstate
 					backThing();
 				}
 				#if android
-				flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
+				FNFState.disableNextTransOut = true;
 				FlxG.resetState();
 				#else
 				close();
