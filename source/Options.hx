@@ -225,6 +225,11 @@ class HitboxesAlpha extends Option
 		return false;
 	}
 
+        override function getValue():String
+	{
+		return "Current Hitbox Opacity: " + FlxG.save.data.hitboxOpacity;
+	}
+
 	private override function updateDisplay():String
 	{
 		return "hitbox opacity " + FlxG.save.data.hitboxOpacity;
