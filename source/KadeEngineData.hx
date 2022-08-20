@@ -5,6 +5,9 @@ class KadeEngineData
 {
 	public static function initSave()
 	{
+                if (FlxG.save.data.gradientHitboxes == null)
+                        FlxG.save.data.gradientHitboxes = true;
+
 		if (FlxG.save.data.mechsInputVariants == null)
 			FlxG.save.data.mechsInputVariants = true;
 
