@@ -98,25 +98,27 @@ class FlxHitbox extends FlxSpriteGroup
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
 	{
-                var shape = new Shape();
-                if (FlxG.save.data.gradientHitboxes) {
-		        var g = shape.graphics;
-		        var lineSize = 3;
-		        g.beginFill(Color);
-		        g.lineStyle(lineSize, Color, 1);
-		        g.drawRect(0, 0, Width, Height);
-		        g.lineStyle(0, 0, 0);
-		        g.drawRect(lineSize, lineSize, Width - (lineSize * 2), Height - (lineSize * 2));
-		        g.endFill();
-		        g.beginGradientFill(RADIAL, [Color, FlxColor.TRANSPARENT], [0.6, 0], [0, 255], null, null, null, 0.5);
-		        g.drawRect(lineSize, lineSize, Width - (lineSize * 2), Height - (lineSize * 2));
-		        g.endFill();
-                } else {
-		        shape.graphics.beginFill(Color);
-		        shape.graphics.lineStyle(10, Color, 1);
-		        shape.graphics.drawRect(0, 0, Width, Height);
-		        shape.graphics.endFill();
-                }
+		var shape = new Shape();
+
+		if (FlxG.save.data.gradientHitboxes)
+		{
+			shape.graphics.beginFill(Color);
+			shape.graphics.lineStyle(3, Color, 1);
+			shape.graphics.drawRect(0, 0, Width, Height);
+			shape.graphics.lineStyle(0, 0, 0);
+			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
+			shape.graphics.endFill();
+			shape.graphics.beginGradientFill(RADIAL, [Color, FlxColor.TRANSPARENT], [0.6, 0], [0, 255], null, null, null, 0.5);
+			shape.graphics.drawRect(3, 3, Width - 6, Height - 6);
+			shape.graphics.endFill();
+		}
+		else
+		{
+			shape.graphics.beginFill(Color);
+			shape.graphics.lineStyle(10, Color, 1);
+			shape.graphics.drawRect(0, 0, Width, Height);
+			shape.graphics.endFill();
+		}
 
 		var bitmap:BitmapData = new BitmapData(Width, Height, true, 0);
 		bitmap.draw(shape);
