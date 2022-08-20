@@ -196,6 +196,7 @@ class HitboxesAlpha extends Option
 	{
 		super();
 		description = desc;
+                acceptValues = true;
 	}
 
         override function right():Bool
