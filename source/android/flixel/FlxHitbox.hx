@@ -7,12 +7,9 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.graphics.FlxGraphic;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.group.FlxSpriteGroup;
-import openfl.utils.Assets;
 
 /**
  * A zone with 4 hint's (A hitbox).
@@ -98,7 +95,7 @@ class FlxHitbox extends FlxSpriteGroup
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
 	{
-		var shape = new Shape();
+		var shape:Shape = new Shape();
 
 		if (FlxG.save.data.gradientHitboxes)
 		{
@@ -152,7 +149,7 @@ class FlxHitbox extends FlxSpriteGroup
 			if (hintTween != null)
 				hintTween.cancel();
 
-			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, AndroidControls.getOpacity(true) / 100, {
+			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, AndroidControls.getOpacity(true) / 10, {
 				ease: FlxEase.circInOut,
 				onComplete: function(twn:FlxTween)
 				{
@@ -165,7 +162,7 @@ class FlxHitbox extends FlxSpriteGroup
 			if (hintTween != null)
 				hintTween.cancel();
 
-			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, AndroidControls.getOpacity(true) / 100, {
+			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, AndroidControls.getOpacity(true) / 10, {
 				ease: FlxEase.circInOut,
 				onComplete: function(twn:FlxTween)
 				{
