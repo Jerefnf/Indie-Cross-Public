@@ -127,7 +127,6 @@ class FlxHitbox extends FlxSpriteGroup
 
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
 	{
-		var hintTween:FlxTween = null;
 		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(createHintGraphic(Width, Height, Color));
 		hint.solid = false;
@@ -136,42 +135,15 @@ class FlxHitbox extends FlxSpriteGroup
 		hint.alpha = 0.00001;
 		hint.onDown.callback = function()
 		{
-			if (hintTween != null)
-				hintTween.cancel();
-
-			hintTween = FlxTween.tween(hint, {alpha: AndroidControls.getOpacity(true)}, AndroidControls.getOpacity(true) / 100, {
-				ease: FlxEase.circInOut,
-				onComplete: function(twn:FlxTween)
-				{
-					hintTween = null;
-				}
-			});
+			hint.alpha = AndroidControls.getOpacity(true);
 		}
 		hint.onUp.callback = function()
 		{
-			if (hintTween != null)
-				hintTween.cancel();
-
-			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, AndroidControls.getOpacity(true) / 100, {
-				ease: FlxEase.circInOut,
-				onComplete: function(twn:FlxTween)
-				{
-					hintTween = null;
-				}
-			});
+			hint.alpha = 0.00001;
 		}
 		hint.onOut.callback = function()
 		{
-			if (hintTween != null)
-				hintTween.cancel();
-
-			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, AndroidControls.getOpacity(true) / 100, {
-				ease: FlxEase.circInOut,
-				onComplete: function(twn:FlxTween)
-				{
-					hintTween = null;
-				}
-			});
+			hint.alpha = 0.00001;
 		}
 		#if FLX_DEBUG
 		hint.ignoreDrawDebug = true;
