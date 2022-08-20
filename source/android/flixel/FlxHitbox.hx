@@ -98,8 +98,8 @@ class FlxHitbox extends FlxSpriteGroup
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
 	{
+                var shape = new Shape();
                 if (FlxG.save.data.gradientHitboxes) {
-                        var shape = new Shape();
 		        var g = shape.graphics;
 		        var lineSize = 3;
 		        g.beginFill(Color);
@@ -116,7 +116,6 @@ class FlxHitbox extends FlxSpriteGroup
                         g = null;
                         lineSize = null;
                 } else {
-		        var shape:Shape = new Shape();
 		        shape.graphics.beginFill(Color);
 		        shape.graphics.lineStyle(10, Color, 1);
 		        shape.graphics.drawRect(0, 0, Width, Height);
