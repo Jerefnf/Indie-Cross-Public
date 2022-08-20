@@ -98,25 +98,14 @@ class FlxHitbox extends FlxSpriteGroup
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
 	{
-		var bitmap = new BitmapData(Width, Height, true, 0);
-		var sh = new Shape();
-		var g = sh.graphics;
+		var shape:Shape = new Shape();
+		shape.graphics.beginFill(Color);
+		shape.graphics.lineStyle(10, Color, 1);
+		shape.graphics.drawRect(0, 0, Width, Height);
+		shape.graphics.endFill();
 
-		var lineSize = 3;
-
-		g.beginFill(Color);
-		g.lineStyle(lineSize, Color, 1);
-		g.drawRect(0, 0, Width, Height);
-		g.lineStyle(0, 0, 0);
-		g.drawRect(lineSize, lineSize, Width - (lineSize * 2), Height - (lineSize * 2));
-		g.endFill();
-
-		g.beginGradientFill(RADIAL, [Color, FlxColor.TRANSPARENT], [0.6, 0], [0, 255], null, null, null, 0.5);
-		g.drawRect(lineSize, lineSize, Width - (lineSize * 2), Height - (lineSize * 2));
-		g.endFill();
-
-		bitmap.draw(sh);
-
+		var bitmap:BitmapData = new BitmapData(Width, Height, true, 0);
+		bitmap.draw(shape);
 		return bitmap;
 	}
 
@@ -134,7 +123,7 @@ class FlxHitbox extends FlxSpriteGroup
 			if (hintTween != null)
 				hintTween.cancel();
 
-			hintTween = FlxTween.tween(hint, {alpha: AndroidControls.getOpacity()}, AndroidControls.getOpacity() / 10, {
+			hintTween = FlxTween.tween(hint, {alpha: AndroidControls.getOpacity(true)}, AndroidControls.getOpacity(true) / 10, {
 				ease: FlxEase.circInOut,
 				onComplete: function(twn:FlxTween)
 				{

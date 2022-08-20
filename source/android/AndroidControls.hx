@@ -31,20 +31,41 @@ class AndroidControls extends FlxSpriteGroup
 		}
 	}
 
-	public static function setOpacity(opacity:Float = 0.6):Void
+	public static function setOpacity(opacity:Float, isHitbox:Bool = false):Void
 	{
-		FlxG.save.data.androidControlsOpacity = opacity;
-		FlxG.save.flush();
-	}
-
-	public static function getOpacity():Float
-	{
-		if (FlxG.save.data.androidControlsOpacity == null)
+		if (!isHitbox)
 		{
-			FlxG.save.data.androidControlsOpacity = 0.6;
+			FlxG.save.data.virtualPadOpacity = opacity;
 			FlxG.save.flush();
 		}
+		else
+		{
+			FlxG.save.data.hitboxOpacity = opacity;
+			FlxG.save.flush();
+		}
+	}
 
-		return FlxG.save.data.androidControlsOpacity;
+	public static function getOpacity(isHitbox:Bool = false):Float
+	{
+		if (!isHitbox)
+		{
+			if (FlxG.save.data.virtualPadOpacity == null)
+			{
+				FlxG.save.data.virtualPadOpacity = 0.6;
+				FlxG.save.flush();
+			}
+
+			return FlxG.save.data.virtualPadOpacity;
+		}
+		else
+		{
+			if (FlxG.save.data.hitboxOpacity == null)
+			{
+				FlxG.save.data.hitboxOpacity = 0.2;
+				FlxG.save.flush();
+			}
+
+			return FlxG.save.data.hitboxOpacity;
+		}
 	}
 }
