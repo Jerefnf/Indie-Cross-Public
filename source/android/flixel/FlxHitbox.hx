@@ -111,10 +111,6 @@ class FlxHitbox extends FlxSpriteGroup
 		        g.beginGradientFill(RADIAL, [Color, FlxColor.TRANSPARENT], [0.6, 0], [0, 255], null, null, null, 0.5);
 		        g.drawRect(lineSize, lineSize, Width - (lineSize * 2), Height - (lineSize * 2));
 		        g.endFill();
-
-                        //clean the memory
-                        g = null;
-                        lineSize = null;
                 } else {
 		        shape.graphics.beginFill(Color);
 		        shape.graphics.lineStyle(10, Color, 1);
