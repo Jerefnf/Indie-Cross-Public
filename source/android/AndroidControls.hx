@@ -59,12 +59,6 @@ class AndroidControls extends FlxSpriteGroup
 		}
 		else
 		{
-			if (FlxG.save.data.hitboxOpacity == null)
-			{
-				FlxG.save.data.hitboxOpacity = 0.2;
-				FlxG.save.flush();
-			}
-
 			return FlxG.save.data.hitboxOpacity;
 		}
 	}
