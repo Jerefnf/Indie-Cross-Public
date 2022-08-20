@@ -202,7 +202,7 @@ class HitboxesAlpha extends Option
 	{
                 FlxG.save.data.hitboxOpacity += 0.01;
                 if (FlxG.save.data.hitboxOpacity > 1.0) {
-                        FlxG.save.data.hitboxOpacity = 0.01;
+                        FlxG.save.data.hitboxOpacity = 0.0;
                 }
 
                 return true;
@@ -210,7 +210,7 @@ class HitboxesAlpha extends Option
 
         override function left():Bool
 	{
-                if (FlxG.save.data.hitboxOpacity == 0.01) {
+                if (FlxG.save.data.hitboxOpacity == 0.0) {
                         FlxG.save.data.hitboxOpacity = 1.0;
                 } else {
                         FlxG.save.data.hitboxOpacity -= 0.01;
