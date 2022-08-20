@@ -23,7 +23,8 @@ class OptionsMenu extends MusicBeatState
 		new OptionCategory("Gameplay", [
 			new DFJKOption(),
 			#if android
-			new MechsInputVariants("Variants of inputs for mechanics. !!!THIS OPTION AFFECTS ONLY TO HITBOX INPUT!!!"),
+			new MechsInputVariants("Variants of inputs for mechanics."),
+                        new GradientHitboxes("Should hitboxes have gradient colors or no"),
 			#end
 			new DownscrollOption("Change the layout of the strumline."),
 			new GhostTapOption("Ghost Tapping is when you tap a direction and it doesn't give you a miss."),
