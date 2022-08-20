@@ -139,7 +139,7 @@ class FlxHitbox extends FlxSpriteGroup
 			if (hintTween != null)
 				hintTween.cancel();
 
-			hintTween = FlxTween.tween(hint, {alpha: AndroidControls.getOpacity(true)}, AndroidControls.getOpacity(true) / 10, {
+			hintTween = FlxTween.tween(hint, {alpha: AndroidControls.getOpacity(true)}, AndroidControls.getOpacity(true) / 100, {
 				ease: FlxEase.circInOut,
 				onComplete: function(twn:FlxTween)
 				{
