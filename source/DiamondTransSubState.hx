@@ -7,10 +7,11 @@ import flixel.FlxSubState;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import openfl.filters.ShaderFilter;
 
 class DiamondTransSubState extends FlxSubState
 {
-	var shader:DiamondTransShader;
+	var shader:ShaderFilter = new ShaderFilter(new DiamondTransShader());
 	var rect:FlxSprite;
 	var tween:FlxTween;
 
@@ -37,10 +38,11 @@ class DiamondTransSubState extends FlxSubState
 
 		FlxG.cameras.add(camera, false);
 
-		shader = new DiamondTransShader();
+		// shader = new DiamondTransShader();
 
-		shader.progress.value = [0.0];
-		shader.reverse.value = [false];
+		shader.shader.data.progress.value = [0.0];
+		shader.shader.data.reverse.value = [false];
+                shader.shader.data.diamondPixelSize.value = [30.0];
 
 		rect = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF000000);
 		rect.scrollFactor.set();
@@ -77,7 +79,7 @@ class DiamondTransSubState extends FlxSubState
 			}
 		}, function(num:Float)
 		{
-			shader.progress.value = [num];
+			shader.shader.data.progress.value = [num];
 		});
 	}
 
