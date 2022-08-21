@@ -2989,7 +2989,22 @@ class PlayState extends MusicBeatState
 				var b:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Gaster_blasterss', 'sans'));
 				b.alpha = 0.0001;
 				add(b);
+                        case 'technicolor-tussle' | 'knockout' | 'devils-gambit':
+                                var b:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Parry_assets', 'notes'));
+				b.alpha = 0.0001; //preloading parry notes splash on cuphead songs, cuz indie cross devs frorgot about that
+				add(b);
+                                remove(b);
+                        case 'nightmare-run' | 'despair':
+                                var b:FlxSprite = new FlxSprite().loadGraphic(Paths.image('sinSplashes', 'notes'));
+				b.alpha = 0.0001; //preloading shadow notes splash on despair and nightmare run songs, cuz indie cross devs again frorgot about that
+				add(b);
+                                remove(b);
 		}
+
+                var jj:FlxSprite = new FlxSprite().loadGraphic(Paths.image('AllnoteSplashes', 'notes'));
+	        jj.alpha = 0.0001; //preloading default notes splash, cuz indie cross devs again x3 frorgot about that
+		add(jj);
+                remove(jj);
 
 		if (curStage == 'hall')
 		{
