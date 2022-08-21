@@ -5,11 +5,11 @@ class KadeEngineData
 {
 	public static function initSave()
 	{
-                if (FlxG.save.data.render == null)
-                        FlxG.save.data.render = 0;
+		if (FlxG.save.data.render == null)
+			FlxG.save.data.render = 0;
 
-                if (FlxG.save.data.hitboxOpacity == null)
-                        FlxG.save.data.hitboxOpacity = 0.2;
+		if (FlxG.save.data.hitboxOpacity == null)
+			FlxG.save.data.hitboxOpacity = 0.6;
 
 		if (FlxG.save.data.gradientHitboxes == null)
 			FlxG.save.data.gradientHitboxes = true;

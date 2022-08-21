@@ -201,10 +201,9 @@ class HitboxesAlpha extends Option
 
         override function right():Bool
 	{
-                FlxG.save.data.hitboxOpacity += 0.01;
-                if (FlxG.save.data.hitboxOpacity > 1.0) {
-                        FlxG.save.data.hitboxOpacity = 0.0;
-                }
+		FlxG.save.data.hitboxOpacity += 0.01;
+		if (FlxG.save.data.hitboxOpacity > 1.0)
+			FlxG.save.data.hitboxOpacity = 0.0;
 
                 display = updateDisplay(); // refresh text
 
@@ -213,11 +212,10 @@ class HitboxesAlpha extends Option
 
         override function left():Bool
 	{
-                if (FlxG.save.data.hitboxOpacity == 0.0) {
-                        FlxG.save.data.hitboxOpacity = 1.0;
-                } else {
-                        FlxG.save.data.hitboxOpacity -= 0.01;
-                }
+		if (FlxG.save.data.hitboxOpacity == 0.0)
+			FlxG.save.data.hitboxOpacity = 1.0;
+		else
+			FlxG.save.data.hitboxOpacity -= 0.01;
 
                 display = updateDisplay(); // refresh text
 
@@ -236,7 +234,7 @@ class HitboxesAlpha extends Option
 
 	private override function updateDisplay():String
 	{
-		return "hitbox opacity " + Std.int(FlxG.save.data.hitboxOpacity * 100) + "%";
+		return "Hitbox Opacity " + Std.int(FlxG.save.data.hitboxOpacity * 100) + "%";
 	}
 }
 
@@ -250,26 +248,28 @@ class RenderTypes extends Option
 
 	public override function press():Bool
 	{
-                if (FlxG.save.data.render != 2) {
-		        FlxG.save.data.render += 1;
-                } else {
-                        FlxG.save.data.render = 0;
-                }
+		if (FlxG.save.data.render != 2)
+			FlxG.save.data.render += 1;
+		else
+			FlxG.save.data.render = 0;
+
 		display = updateDisplay();
 		return true;
 	}
 
 	private override function updateDisplay():String
 	{
-		switch (FlxG.save.data.render) {
-                        case 0:
-                                return "ram render";
-                        case 1:
-                                return "gpu flash render";
-                        case 2:
-                                return "gpu openfl render";
-                }
-                return "broken";
+		switch (FlxG.save.data.render)
+		{
+			case 0:
+				return 'RAM Render';
+			case 1:
+				return 'GPU Flash Render';
+			case 2:
+				return 'GPU OpenFL Render';
+		}
+
+                return 'broken';
 	}
 }
 

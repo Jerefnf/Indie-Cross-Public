@@ -40,16 +40,18 @@ class OptionsMenu extends MusicBeatState
 			new CamZoomOption("Toggle the camera zoom in-game."),
 			new AccuracyOption("Display accuracy information."),
 			new NPSDisplayOption("Shows your current Notes Per Second."),
+			#if android
 			new ShowMS("Show the MS count for each note press"),
-                        #if android
-                        new GradientHitboxes("Should hitboxes have gradient colors or no"),
-                        new HitboxesAlpha("Hitboxes Opacity or contrast whatever."),
-                        #end
+			new GradientHitboxes("Should hitboxes have gradient colors or no"),
+			new HitboxesAlpha("Hitboxes Opacity or contrast whatever.")
+			#else
+			new ShowMS("Show the MS count for each note press")
+			#end
 		]),
 		new OptionCategory("Performance", [
 			new Photosensitive("Turn off visual effects that may harm your vision."),
 			new HighQuality("Enable low quality mode for a smoother playing experience."),
-                        new RenderTypes("select rendering type between ram, gpu flash or gpu openfl, restart the game after changing"),
+			new RenderTypes("Select the render type, RAM rendering or GPU rendering")
 		]),
 		new OptionCategory("Window", [
 			#if !android

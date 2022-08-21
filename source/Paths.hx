@@ -25,14 +25,13 @@ class Paths
 	public static function clearUnusedMemory()
 	{
 		// clear non local assets in the tracked assets list
+		var counter:Int = 0;
 		for (key in currentTrackedAssets.keys())
 		{
 			// if it is not currently contained within the used local assets
 			if (!localTrackedAssets.contains(key))
 			{
-				// get rid of it
 				var obj = currentTrackedAssets.get(key);
-				@:privateAccess
 				if (obj != null)
 				{
 					var isTexture:Bool = currentTrackedTextures.exists(key);
@@ -43,16 +42,22 @@ class Paths
 						texture = null;
 						currentTrackedTextures.remove(key);
 					}
-					OpenFlAssets.cache.removeBitmapData(key);
-					OpenFlAssets.cache.clearBitmapData(key);
-					OpenFlAssets.cache.clear(key);
-					FlxG.bitmap._cache.remove(key);
+					@:privateAccess
+					if (openfl.Assets.cache.hasBitmapData(key))
+					{
+						OpenFlAssets.cache.removeBitmapData(key);
+						OpenFlAssets.cache.clear(key);
+						FlxG.bitmap._cache.remove(key);
+					}
+					trace('removed $key, ' + (isTexture ? 'is a texture' : 'is not a texture'));
 					obj.destroy();
 					currentTrackedAssets.remove(key);
+					counter++;
 				}
 			}
 		}
 
+		trace('removed $counter assets');
 		// run the garbage collector for good measure lmfao
 		System.gc();
 	}
@@ -70,10 +75,13 @@ class Paths
 			var obj = FlxG.bitmap._cache.get(key);
 			if (obj != null && !currentTrackedAssets.exists(key))
 			{
-				OpenFlAssets.cache.removeBitmapData(key);
-				OpenFlAssets.cache.clearBitmapData(key);
-				OpenFlAssets.cache.clear(key);
-				FlxG.bitmap._cache.remove(key);
+				@:privateAccess
+				if (openfl.Assets.cache.hasBitmapData(key))
+				{
+					OpenFlAssets.cache.removeBitmapData(key);
+					OpenFlAssets.cache.clear(key);
+					FlxG.bitmap._cache.remove(key);
+				}
 				obj.destroy();
 			}
 		}
@@ -83,9 +91,12 @@ class Paths
 		{
 			if (!localTrackedAssets.contains(key) && key != null)
 			{
-				OpenFlAssets.cache.removeSound(key);
-				OpenFlAssets.cache.clearSounds(key);
-				OpenFlAssets.cache.clear(key);
+				@:privateAccess
+				if (openfl.Assets.cache.hasSound(key))
+				{
+					OpenFlAssets.cache.removeSound(key);
+					OpenFlAssets.cache.clear(key);
+				}
 				currentTrackedSounds.remove(key);
 			}
 		}
@@ -97,15 +108,12 @@ class Paths
 
 		// flags everything to be cleared out next unused memory clear
 		localTrackedAssets = [];
-		OpenFlAssets.cache.clear("songs");
 	}
 
 	static public var currentLevel:String;
 
 	static public function setCurrentLevel(name:String)
-	{
 		currentLevel = name.toLowerCase();
-	}
 
 	public static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
 	{
@@ -170,40 +178,22 @@ class Paths
 		return returnSound('music', key, library, cache);
 
 	inline static public function voices(song:String, ?cache:Bool = true)
-	{
-		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		return returnSound('songs', '${songLowercase}/Voices', null, cache);
-	}
+		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Voices', null, cache);
 
 	inline static public function voicesHidden(song:String, ?cache:Bool = true)
-	{
-		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		return returnSound('songs', '${songLowercase}/Voices', 'hiddenContent', cache);
-	}
+		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Voices', 'hiddenContent', cache);
 
 	inline static public function voicesEasy(song:String, ?cache:Bool = true)
-	{
-		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		return returnSound('songs', '${songLowercase}/Voices-easy', null, cache);
-	}
+		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Voices-easy', null, cache);
 
 	inline static public function inst(song:String, ?cache:Bool = true)
-	{
-		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		return returnSound('songs', '${songLowercase}/Inst', null, cache);
-	}
+		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Inst', null, cache);
 
 	inline static public function instHidden(song:String, ?cache:Bool = true)
-	{
-		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		return returnSound('songs', '${songLowercase}/Inst', 'hiddenContent', cache);
-	}
+		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Inst', 'hiddenContent', cache);
 
 	inline static public function instEasy(song:String, ?cache:Bool = true)
-	{
-		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
-		return returnSound('songs', '${songLowercase}/Inst-easy', null, cache);
-	}
+		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Inst-easy', null, cache);
 
 	inline static public function image(key:String, ?library:String):FlxGraphic
 		return returnGraphic(key, library);
@@ -225,34 +215,34 @@ class Paths
 			if (!currentTrackedAssets.exists(path))
 			{
                                 var bitmap:BitmapData = OpenFlAssets.getBitmapData(path, false);
-				var newGraphic:FlxGraphic = null;
-                                if (FlxG.save.data.render == 0) {
-					// put here ram render
-                                        newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
-                                } else {
-                                        if (FlxG.save.data.render == 1) {
-					    	var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
-                                                texture.uploadFromBitmapData(bitmap);
+				var newGraphic:FlxGraphic;
+
+				switch (FlxG.save.data.render)
+				{
+					case 0:
+						newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
+					case 1:
+						var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+						texture.uploadFromBitmapData(bitmap);
 						currentTrackedTextures.set(path, texture);
 						bitmap.dispose();
 						bitmap.disposeImage();
 						bitmap = null;
 						newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
-                                        }
-                                        if (FlxG.save.data.render == 2) {
-                                            	var texture = Lib.current.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
-                                                texture.uploadFromBitmapData(bitmap);
+					case 2:
+						var texture = Lib.current.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+						texture.uploadFromBitmapData(bitmap);
 						currentTrackedTextures.set(path, texture);
 						bitmap.dispose();
 						bitmap.disposeImage();
 						bitmap = null;
 						newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
-                                        }
-					
 				}
+
 				newGraphic.persist = true;
 				currentTrackedAssets.set(path, newGraphic);
 			}
+
 			localTrackedAssets.push(path);
 			return currentTrackedAssets.get(path);
 		}
@@ -263,17 +253,22 @@ class Paths
 
 	public static function returnSound(path:String, key:String, ?library:String, ?cache:Bool = true):Sound
 	{
-		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
-		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
-		if (!currentTrackedSounds.exists(gottenPath))
-		{
-			var folder:String = '';
-			if (path == 'songs' && library == null)
-				folder = 'songs:';
+		var folder:String = '';
+		if (path == 'songs' && library == null)
+			folder = 'songs:';
 
-			currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library), cache));
+		var gottenPath:String = folder + getPath('$path/$key.$SOUND_EXT', SOUND, library);
+
+		if (OpenFlAssets.exists(path, SOUND))
+		{
+			if (!currentTrackedSounds.exists(gottenPath))
+				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(gottenPath, cache));
+
+			localTrackedAssets.push(gottenPath);
+			return currentTrackedSounds.get(gottenPath);
 		}
-		localTrackedAssets.push(gottenPath);
-		return currentTrackedSounds.get(gottenPath);
+
+		trace('oh no its returning null NOOOO');
+		return null;
 	}
 }
