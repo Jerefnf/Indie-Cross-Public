@@ -609,16 +609,6 @@ class FreeplayState extends MusicBeatState
 					#end
 					codeAccepted(word); // IT WORKS!!! ✅
 				}
-
-				if (!word.toUpperCase().contains(codeBuffer.substring(0, codeBuffer.length - 1))
-					|| word.toUpperCase().contains(codeBuffer))
-					break;
-				if (codeBuffer.length > 1)
-				{
-					trace(word);
-					FlxG.sound.play(Paths.sound('delete', 'preload'), 2);
-					codeBuffer = '';
-				}
 			}
 		}
 	}
