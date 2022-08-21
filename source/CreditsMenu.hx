@@ -393,7 +393,11 @@ class CreditsMenu extends MusicBeatState
 		quoteBack.alpha = 0.00001;
 		add(quoteBack);
 
+		#if android
+		specialThanksText = new FlxText(quoteBack.x, quoteBack.y + 120, 500, 'Press C for Special Thanks');
+		#else
 		specialThanksText = new FlxText(quoteBack.x, quoteBack.y + 120, 500, 'Press TAB for Special Thanks');
+		#end
 		specialThanksText.setFormat(Paths.font("Bronx.otf"), 16, FlxColor.WHITE);
 		specialThanksText.alignment = CENTER;
 		add(specialThanksText);
