@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
+import openfl.display.BitmapData;
 import openfl.display3D.textures.Texture;
 import openfl.media.Sound;
 import openfl.system.System;
@@ -98,7 +99,7 @@ class Paths
 		var counterLeft:Int = 0;
 		for (key in OpenFlAssets.cache.getKeys())
 		{
-			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
+			if (!localTrackedAssets.contains(key) && key != null)
 			{
 				OpenFlAssets.cache.clear(key);
 				counterLeft++;

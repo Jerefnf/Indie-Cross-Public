@@ -65,7 +65,7 @@ class InspectReward extends MusicBeatSubstate
 		FlxTween.tween(bg, {alpha: 0.85}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(icon, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(descText, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(virtualPad, {alpha: 1}, entertime, {ease: FlxEase.quartInOut});
+		FlxTween.tween(virtualPad, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
 	}
 
 	override public function update(elapsed:Float):Void
