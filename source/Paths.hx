@@ -220,8 +220,6 @@ class Paths
 
 				switch (FlxG.save.data.render)
 				{
-					case 0:
-						newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
 					case 1:
 						var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
 						texture.uploadFromBitmapData(bitmap);
@@ -238,6 +236,8 @@ class Paths
 						bitmap.disposeImage();
 						bitmap = null;
 						newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
+					default:
+						newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
 				}
 
 				newGraphic.persist = true;
