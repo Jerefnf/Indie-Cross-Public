@@ -86,7 +86,6 @@ class Paths
 				OpenFlAssets.cache.clearSounds(key);
 				OpenFlAssets.cache.clear(key);
 				currentTrackedSounds.remove(key);
-				counterSound++;
 			}
 		}
 
