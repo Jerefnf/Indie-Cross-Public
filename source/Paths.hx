@@ -230,19 +230,25 @@ class Paths
 					// put here ram render
                                         newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
                                 } else {
-                                        var texture;
                                         if (FlxG.save.data.render == 1) {
-					    	texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+					    	var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+                                                texture.uploadFromBitmapData(bitmap);
+						currentTrackedTextures.set(path, texture);
+						bitmap.dispose();
+						bitmap.disposeImage();
+						bitmap = null;
+						newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
                                         }
                                         if (FlxG.save.data.render == 2) {
-                                            	texture = Lib.current.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+                                            	var texture = Lib.current.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+                                                texture.uploadFromBitmapData(bitmap);
+						currentTrackedTextures.set(path, texture);
+						bitmap.dispose();
+						bitmap.disposeImage();
+						bitmap = null;
+						newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
                                         }
-					texture.uploadFromBitmapData(bitmap);
-					currentTrackedTextures.set(path, texture);
-					bitmap.dispose();
-					bitmap.disposeImage();
-					bitmap = null;
-					newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
+					
 				}
 				newGraphic.persist = true;
 				currentTrackedAssets.set(path, newGraphic);
