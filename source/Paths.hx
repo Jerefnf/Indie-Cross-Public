@@ -205,19 +205,19 @@ class Paths
 		return returnSound('songs', '${songLowercase}/Inst-easy', null, cache);
 	}
 
-	inline static public function image(key:String, ?library:String, ?gpuRender:Bool = false):FlxGraphic
-		return returnGraphic(key, library, gpuRender);
+	inline static public function image(key:String, ?library:String):FlxGraphic
+		return returnGraphic(key, library);
 
 	inline static public function font(key:String)
 		return 'assets/fonts/$key';
 
 	inline static public function getSparrowAtlas(key:String, ?library:String):FlxAtlasFrames
-		return FlxAtlasFrames.fromSparrow(image(key, library, true), file('images/$key.xml', library));
+		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library, true), file('images/$key.txt', library));
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
 
-	public static function returnGraphic(key:String, ?library:String, ?gpuRender:Bool = false):FlxGraphic
+	public static function returnGraphic(key:String, ?library:String):FlxGraphic
 	{
 		var path = getPath('images/$key.png', IMAGE, library);
 		if (OpenFlAssets.exists(path, IMAGE))
