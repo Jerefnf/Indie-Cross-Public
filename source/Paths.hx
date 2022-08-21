@@ -221,7 +221,7 @@ class Paths
 				switch (FlxG.save.data.render)
 				{
 					case 1:
-						texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+						var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
 						texture.uploadFromBitmapData(bitmap);
 						currentTrackedTextures.set(path, texture);
 						bitmap.dispose();
