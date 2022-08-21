@@ -128,7 +128,7 @@ class GameOverSubstate extends MusicBeatSubstate
 					gameOverSpr.scrollFactor.set();
 					gameOverSpr.antialiasing = FlxG.save.data.highquality;
 					add(gameOverSpr);
-					gameOverSpr.alpha = 0;
+					gameOverSpr.alpha = 0.00001;
 
 					new FlxTimer().start(2, function(tmr:FlxTimer)
 					{

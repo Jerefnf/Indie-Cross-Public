@@ -883,7 +883,7 @@ class ChartingState extends MusicBeatState
 					{
 						jumpscareStatic.alpha = 1;
 						FlxTween.color(jumpscareStatic, 1.85, FlxColor.WHITE, FlxColor.BLACK, {ease: FlxEase.quadOut});
-						bendy.alpha = 0.0;
+						bendy.alpha = 0.00001;
 					});
 
 					JumpscareState.allowRetry = false;
@@ -908,7 +908,7 @@ class ChartingState extends MusicBeatState
 					{
 						jumpscareStatic.alpha = 1;
 						FlxTween.color(jumpscareStatic, 1.85, FlxColor.WHITE, FlxColor.BLACK, {ease: FlxEase.quadOut});
-						cuphead.alpha = 0.0;
+						cuphead.alpha = 0.00001;
 					});
 
 					JumpscareState.allowRetry = false;
@@ -933,7 +933,7 @@ class ChartingState extends MusicBeatState
 					{
 						jumpscareStatic.alpha = 1;
 						FlxTween.color(jumpscareStatic, 1.85, FlxColor.WHITE, FlxColor.BLACK, {ease: FlxEase.quadOut});
-						sans.alpha = 0.0;
+						sans.alpha = 0.00001;
 					});
 
 					JumpscareState.allowRetry = false;

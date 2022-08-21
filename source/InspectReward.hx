@@ -21,7 +21,7 @@ class InspectReward extends MusicBeatSubstate
 		super();
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0;
+		bg.alpha = 0.00001;
 		bg.scrollFactor.set();
 		add(bg);
 
@@ -30,7 +30,7 @@ class InspectReward extends MusicBeatSubstate
 		icon.screenCenter();
 		icon.antialiasing = FlxG.save.data.highquality;
 		icon.scrollFactor.set();
-		icon.alpha = 0;
+		icon.alpha = 0.00001;
 		add(icon);
 
 		var descText:FlxText = new FlxText(20, icon.y + 300, 0,
@@ -55,7 +55,7 @@ class InspectReward extends MusicBeatSubstate
 		descText.updateHitbox();
 		add(descText);
 		descText.screenCenter(X);
-		descText.alpha = 0;
+		descText.alpha = 0.00001;
 
 		trace(icon.scale.x, icon.scale.y);
 

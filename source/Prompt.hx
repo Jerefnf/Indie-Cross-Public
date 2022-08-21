@@ -24,7 +24,7 @@ class Prompt extends MusicBeatSubstate
 		super();
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0;
+		bg.alpha = 0.00001;
 		bg.scrollFactor.set();
 		add(bg);
 
@@ -33,7 +33,7 @@ class Prompt extends MusicBeatSubstate
 		icon.screenCenter();
 		icon.antialiasing = FlxG.save.data.highquality;
 		icon.scrollFactor.set();
-		icon.alpha = 0;
+		icon.alpha = 0.00001;
 		add(icon);
 
 		var text:FlxText = new FlxText(0, icon.y - 100, 0, '', 32);
@@ -44,7 +44,7 @@ class Prompt extends MusicBeatSubstate
 		text.updateHitbox();
 		add(text);
 		text.screenCenter(X);
-		text.alpha = 0;
+		text.alpha = 0.00001;
 
 		var text2:FlxText = new FlxText(0, icon.y + 200, 0, '', 32);
 		text2.scrollFactor.set();
@@ -54,11 +54,11 @@ class Prompt extends MusicBeatSubstate
 		text2.updateHitbox();
 		add(text2);
 		text2.screenCenter(X);
-		text2.alpha = 0;
+		text2.alpha = 0.00001;
 
 		#if android
 		addVirtualPad(NONE, A_B);
-		virtualPad.alpha = 0;
+		virtualPad.alpha = 0.00001;
 		#end
 
 		FlxTween.tween(bg, {alpha: 0.6}, entertime, {ease: FlxEase.quartInOut});

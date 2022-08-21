@@ -102,7 +102,7 @@ class GameOverCuphead extends MusicBeatSubstate
 
 		FlxG.sound.play(Paths.sound('death', 'cup'));
 
-		PlayState.boyfriend.alpha = 0;
+		PlayState.boyfriend.alpha = 0.00001;
 		var bfGhost:FlxSprite = new FlxSprite(PlayState.boyfriend.x, PlayState.boyfriend.y);
 		bfGhost.frames = Paths.getSparrowAtlas('BF_Ghost', 'cup');
 		bfGhost.animation.addByPrefix('ded lol', 'thrtr instance 1', 24, true);
@@ -137,7 +137,7 @@ class GameOverCuphead extends MusicBeatSubstate
 		bgImage.antialiasing = FlxG.save.data.highquality;
 		bgImage.scrollFactor.set();
 		bgImage.angle = -55;
-		bgImage.alpha = 0;
+		bgImage.alpha = 0.00001;
 		// bgImage.cameras = [PlayState.instance.camHUD];
 		add(bgImage);
 
@@ -152,7 +152,7 @@ class GameOverCuphead extends MusicBeatSubstate
 		bfRunning.antialiasing = FlxG.save.data.highquality;
 		bfRunning.scrollFactor.set();
 		bfRunning.angle = -10;
-		bfRunning.alpha = 0;
+		bfRunning.alpha = 0.00001;
 		// bfRunning.cameras = [PlayState.instance.camHUD];
 		add(bfRunning);
 
@@ -175,7 +175,7 @@ class GameOverCuphead extends MusicBeatSubstate
 			menuItem.x = itmPos[i][0];
 			menuItem.y = itmPos[i][1];
 			menuItem.angle = -10;
-			menuItem.alpha = 0;
+			menuItem.alpha = 0.00001;
 			// menuItem.cameras = [PlayState.instance.camHUD];
 			menuItems.add(menuItem);
 			menuArray.push(menuItem);
@@ -188,7 +188,7 @@ class GameOverCuphead extends MusicBeatSubstate
 		text.screenCenter();
 		text.y -= 25;
 		text.scrollFactor.set();
-		text.alpha = 0;
+		text.alpha = 0.00001;
 		// text.cameras = [PlayState.instance.camHUD];
 		add(text);
 
@@ -197,7 +197,7 @@ class GameOverCuphead extends MusicBeatSubstate
 		#if android
 		addVirtualPad(UP_DOWN, A);
 		addPadCamera();
-		virtualPad.alpha = 0;
+		virtualPad.alpha = 0.00001;
 		#end
 
 		new FlxTimer().start(1, function(tmr:FlxTimer)

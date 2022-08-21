@@ -165,7 +165,7 @@ class StoryMenuState extends MusicBeatState
 		bendoBG.updateHitbox();
 		bendoBG.screenCenter();
 		bendoBG.antialiasing = FlxG.save.data.highquality;
-		bendoBG.alpha = 0;
+		bendoBG.alpha = 0.00001;
 		add(bendoBG);
 
 		var leftpanel:FlxSprite = new FlxSprite().loadGraphic(Paths.image('story mode/Left-Panel_above BGs', 'preload'));
@@ -255,7 +255,7 @@ class StoryMenuState extends MusicBeatState
 			flash.setGraphicSize(Std.int(flash.width * daScaling));
 			add(flash);
 			optFlashes.push(flash);
-			flash.alpha = 0;
+			flash.alpha = 0.00001;
 			flash.scrollFactor.set();
 			flash.antialiasing = FlxG.save.data.highquality;
 			flash.updateHitbox();
@@ -614,25 +614,25 @@ class StoryMenuState extends MusicBeatState
 		{
 			default:
 				actualBG.alpha = 1;
-				bendoBG.alpha = 0;
+				bendoBG.alpha = 0.00001;
 				actualBG.loadGraphic(Paths.image('story mode/BG', 'preload'));
 				gamingCup.alpha = 1;
-				gamingSands.alpha = 0;
+				gamingSands.alpha = 0.00001;
 			case 1:
-				actualBG.alpha = 0;
-				bendoBG.alpha = 0;
-				gamingCup.alpha = 0;
+				actualBG.alpha = 0.00001;
+				bendoBG.alpha = 0.00001;
+				gamingCup.alpha = 0.00001;
 				gamingSands.alpha = 1;
 			case 2:
-				actualBG.alpha = 0;
+				actualBG.alpha = 0.00001;
 				bendoBG.alpha = 1;
-				gamingCup.alpha = 0;
-				gamingSands.alpha = 0;
+				gamingCup.alpha = 0.00001;
+				gamingSands.alpha = 0.00001;
 			case 3:
-				actualBG.alpha = 0;
-				bendoBG.alpha = 0;
-				gamingCup.alpha = 0;
-				gamingSands.alpha = 0;
+				actualBG.alpha = 0.00001;
+				bendoBG.alpha = 0.00001;
+				gamingCup.alpha = 0.00001;
+				gamingSands.alpha = 0.00001;
 		}
 
 		if (change != curWeek)

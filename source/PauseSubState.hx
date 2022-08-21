@@ -176,9 +176,9 @@ class PauseSubState extends MusicBeatSubstate
 		mechDiffLabel.updateHitbox();
 		add(mechDiffLabel);
 
-		levelDifficulty.alpha = 0;
-		levelInfo.alpha = 0;
-		mechDiffLabel.alpha = 0;
+		levelDifficulty.alpha = 0.00001;
+		levelInfo.alpha = 0.00001;
+		mechDiffLabel.alpha = 0.00001;
 
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);

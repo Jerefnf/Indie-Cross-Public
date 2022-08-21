@@ -131,6 +131,7 @@ class OptionsMenu extends MusicBeatState
 
 		#if android
 		addVirtualPad(LEFT_FULL, A_B_C);
+		virtualPad.y = -18;
 		#end
 
 		new FlxTimer().start(Main.transitionDuration, function(tmr:FlxTimer)

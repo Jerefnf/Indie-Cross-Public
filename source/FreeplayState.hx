@@ -298,7 +298,7 @@ class FreeplayState extends MusicBeatState
 		jbugWatermark.antialiasing = FlxG.save.data.highquality;
 		jbugWatermark.setGraphicSize(Std.int(jbugWatermark.width * 0.6));
 		jbugWatermark.scrollFactor.set();
-		jbugWatermark.alpha = 0;
+		jbugWatermark.alpha = 0.00001;
 		add(jbugWatermark);
 
 		changeSelection();
@@ -970,7 +970,7 @@ class FreeplayState extends MusicBeatState
 				}
 				else
 				{
-					jbugWatermark.alpha = 0;
+					jbugWatermark.alpha = 0.00001;
 				}
 
 				intendedScore = Highscore.getScore(songHighscore, curDifficulty);

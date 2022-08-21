@@ -64,7 +64,7 @@ class VideoHandler
 
 		if (outputTo != null)
 		{
-			bitmap.alpha = 0;
+			bitmap.alpha = 0.00001;
 			sprite = outputTo;
 		}
 		#end

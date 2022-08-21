@@ -786,7 +786,7 @@ class PlayState extends MusicBeatState
 						finalStretchwhiteBG = new FlxSprite(-640, -640).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.WHITE);
 						finalStretchwhiteBG.scrollFactor.set(0, 0);
 						finalStretchwhiteBG.cameras = [camGame];
-						finalStretchwhiteBG.visible = false;
+						finalStretchwhiteBG.alpha = 0.0001;
 						add(finalStretchwhiteBG);
 
 						finalStretchBarTop = new FlxSprite(-640, -560).makeGraphic(FlxG.width * 2, 560, FlxColor.BLACK);
@@ -822,7 +822,7 @@ class PlayState extends MusicBeatState
 						beatDropbg.scrollFactor.set(0, 0);
 						beatDropbg.blend = BlendMode.ADD;
 						beatDropbg.antialiasing = FlxG.save.data.highquality;
-						beatDropbg.alpha = 0;
+						beatDropbg.alpha = 0.00001;
 
 						nightmareSansBgs.push(bg);
 						nightmareSansBgs.push(beatDropbg);
@@ -1184,13 +1184,10 @@ class PlayState extends MusicBeatState
 								if (SONG.song.toLowerCase() == "last-reel")
 								{
 									stickmanGuy = new FlxSprite(-350, 190);
-
 									stickmanGuy.frames = Paths.getSparrowAtlas("third/JzBoy", "bendy");
-
 									stickmanGuy.setGraphicSize(Std.int(stickmanGuy.width * 0.9));
 									stickmanGuy.animation.addByPrefix('run', 'Jack Copper Walk by instance 1', 24, false);
-									stickmanGuy.visible = false;
-
+									stickmanGuy.alpha = 0.0001;
 									add(stickmanGuy);
 								}
 
@@ -1697,7 +1694,7 @@ class PlayState extends MusicBeatState
 			sign.animation.play('play');
 			sign.antialiasing = FlxG.save.data.highquality;
 			sign.cameras = [camHUD];
-			sign.alpha = 0;
+			sign.alpha = 0.00001;
 			add(sign);
 
 			if (PlayStateChangeables.useDownscroll)
@@ -2033,7 +2030,7 @@ class PlayState extends MusicBeatState
 							for (i in frontbg)
 							{
 								i.scrollFactor.set(0, 0);
-								i.alpha = 0;
+								i.alpha = 0.00001;
 								i.setGraphicSize(Std.int(FlxG.width * 1.815));
 								i.screenCenter();
 								i.antialiasing = FlxG.save.data.highquality;
@@ -2047,7 +2044,7 @@ class PlayState extends MusicBeatState
 							for (i in backbg)
 							{
 								i.scrollFactor.set(0, 0);
-								i.alpha = 0;
+								i.alpha = 0.00001;
 								i.setGraphicSize(Std.int(FlxG.width * 1.815));
 								i.screenCenter();
 								i.antialiasing = FlxG.save.data.highquality;
@@ -2205,11 +2202,10 @@ class PlayState extends MusicBeatState
 							jumpscareStatic.antialiasing = FlxG.save.data.highquality;
 							jumpscareStatic.updateHitbox();
 							jumpscareStatic.scrollFactor.set();
-							jumpscareStatic.alpha = 1.0;
+							jumpscareStatic.alpha = 0.0001;
 							jumpscareStatic.setGraphicSize(Std.int(FlxG.width * 1.1));
 							jumpscareStatic.screenCenter();
 							jumpscareStatic.cameras = [camOVERLAY];
-							jumpscareStatic.visible = false;
 							add(jumpscareStatic);
 
 							blast = new FlxSprite(dad.x - 700, dad.y);
@@ -2314,7 +2310,7 @@ class PlayState extends MusicBeatState
 							sign.animation.play('play');
 							sign.antialiasing = FlxG.save.data.highquality;
 							sign.cameras = [camHUD];
-							sign.alpha = 0;
+							sign.alpha = 0.00001;
 							add(sign);
 
 							if (PlayStateChangeables.useDownscroll)
@@ -2323,6 +2319,21 @@ class PlayState extends MusicBeatState
 								sign.x = 540;
 								sign.y = 62;
 							}
+						}
+
+						if (SONG.song.toLowerCase() != "devils-gambit")
+						{
+							wallop = new FlxSprite();
+							wallop.frames = Paths.getSparrowAtlas('ready_wallop', 'cup');
+							wallop.animation.addByPrefix('start', "Ready? WALLOP!", 24, false);
+							wallop.setGraphicSize(Std.int(wallop.width * 0.8));
+							wallop.updateHitbox();
+							wallop.screenCenter();
+							wallop.antialiasing = FlxG.save.data.highquality;
+							wallop.scrollFactor.set();
+							wallop.cameras = [camHUD];
+							wallop.alpha = 0.00001;
+							add(wallop);
 						}
 
 						if (SONG.song.toLowerCase() == 'satanic-funkin')
@@ -2968,19 +2979,22 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		preload('AllnoteSplashes', 'notes');
-		preload('Parry_assets', 'notes');
-		preload('sinSplashes', 'notes');
-
 		startingSong = true;
+
+		switch (songLowercase)
+		{
+			case 'burning-in-hell':
+				blaster = new FlxTypedGroup<FlxSprite>();
+				add(blaster);
+				var b:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Gaster_blasterss', 'sans'));
+				b.alpha = 0.0001;
+				add(b);
+		}
 
 		if (curStage == 'hall')
 		{
 			if (SONG.song.toLowerCase() == 'final-stretch')
-			{
 				waterFallEvent();
-				waterFallEvent();
-			}
 			else if (SONG.song.toLowerCase() == 'sansational' || SONG.song.toLowerCase() == 'burning-in-hell')
 			{
 				transToCombatUI();
@@ -2990,9 +3004,7 @@ class PlayState extends MusicBeatState
 
 		var suffix:String = '';
 		if (geno)
-		{
 			suffix = 'b';
-		}
 
 		if (isStoryMode)
 		{
@@ -3326,17 +3338,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		switch (songLowercase)
-		{
-			case 'burning-in-hell' | 'bad-time':
-				blaster = new FlxTypedGroup<FlxSprite>();
-				add(blaster);
-				var b:FlxSprite;
-				b = new FlxSprite().loadGraphic(Paths.image('Gaster_blasterss', 'sans'));
-				b.alpha = 0.0001;
-				add(b);
-		}
-
 		defineSteps();
 
 		Paths.clearUnusedMemory();
@@ -3418,7 +3419,7 @@ class PlayState extends MusicBeatState
 
 			var accessibilitySubtitles:FlxText;
 			accessibilitySubtitles = new FlxText(0, FlxG.height - 84, 0, "Test", 32);
-			accessibilitySubtitles.alpha = 0;
+			accessibilitySubtitles.alpha = 0.00001;
 			accessibilitySubtitles.setFormat(Paths.font("Bronx.otf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			accessibilitySubtitles.scrollFactor.set();
 			accessibilitySubtitles.screenCenter(X);
@@ -3621,7 +3622,6 @@ class PlayState extends MusicBeatState
 	#end
 
 	var countdownNarrator:FlxSound;
-
 	var hasBendyTitleIntro:Bool = false;
 
 	function cupteaPlay()
@@ -3716,18 +3716,6 @@ class PlayState extends MusicBeatState
 
 			if (cup && SONG.song.toLowerCase() != "devils-gambit")
 			{
-				wallop = new FlxSprite();
-				wallop.frames = Paths.getSparrowAtlas('ready_wallop', 'cup');
-				wallop.animation.addByPrefix('start', "Ready? WALLOP!", 24, false);
-				wallop.setGraphicSize(Std.int(wallop.width * 0.8));
-				wallop.updateHitbox();
-				wallop.screenCenter();
-				wallop.antialiasing = FlxG.save.data.highquality;
-				wallop.scrollFactor.set();
-				wallop.cameras = [camHUD];
-				wallop.alpha = 0.00001;
-				add(wallop);
-
 				new FlxTimer().start(1.1, function(tmr:FlxTimer)
 				{
 					wallop.alpha = 1;
@@ -4812,6 +4800,8 @@ class PlayState extends MusicBeatState
 		}
 
 		super.openSubState(SubState);
+
+		Paths.clearUnusedMemory();
 	}
 
 	var jumpscareTimerMin:Int = 60;
@@ -4960,6 +4950,8 @@ class PlayState extends MusicBeatState
 		}
 
 		super.closeSubState();
+
+		Paths.clearUnusedMemory();
 	}
 
 	function resyncVocals():Void
@@ -5238,7 +5230,7 @@ class PlayState extends MusicBeatState
 					{
 						inkTime = 0;
 						inkProg = 0;
-						inkObj.alpha = 0;
+						inkObj.alpha = 0.00001;
 					}
 				}
 			}
@@ -6049,7 +6041,7 @@ class PlayState extends MusicBeatState
 			if (kr < health)
 			{
 				kr = health;
-				krBar.alpha = 0;
+				krBar.alpha = 0.00001;
 				healthMax.color = 0xFFFFFFFF;
 			}
 			if (kr > 2)
@@ -7273,6 +7265,10 @@ class PlayState extends MusicBeatState
 
 	function partyFinale():Void // tried a couple hours but got a idea to use a different function all together will prob finish it later tomorrow
 	{
+		#if android
+		androidControls.visible = false;
+		#end
+
 		var scoreMultiplier:Float = 1.25 - (0.25 * mechanicType); // should be 0.75 if the mechanics are off !
 		if (HelperFunctions.getSongData(PlayState.SONG.song.toLowerCase(), 'hasmech') == 'false')
 			scoreMultiplier == 1;
@@ -7845,7 +7841,7 @@ class PlayState extends MusicBeatState
 								poped = false;
 								cardanims.animation.play('pop');
 								cardanims.alpha = 1;
-								cardbar.alpha = 0;
+								cardbar.alpha = 0.00001;
 							}
 						}
 					}
@@ -8671,8 +8667,8 @@ class PlayState extends MusicBeatState
 						}
 						else
 						{
-							dodgeHud.alpha = 0;
-							attackHud.alpha = 0;
+							dodgeHud.alpha = 0.00001;
+							attackHud.alpha = 0.00001;
 							// despawn all blue notes, make all orange notes normal
 							notes.forEachAlive(function(flaggedNote:Note)
 							{
@@ -8770,7 +8766,7 @@ class PlayState extends MusicBeatState
 						pushStepEvent(986, function()
 						{
 							stickmanGuy.animation.play("run");
-							stickmanGuy.visible = true;
+							stickmanGuy.alpha = 1;
 						});
 
 						pushStepEvent(1024, function()
@@ -8798,8 +8794,8 @@ class PlayState extends MusicBeatState
 							shakeyCam = true;
 
 							inkStorm();
-							dodgeHud.alpha = 0;
-							attackHud.alpha = 0;
+							dodgeHud.alpha = 0.00001;
+							attackHud.alpha = 0.00001;
 
 							healthSet(0.01, 10);
 							FlxTween.tween(bendyboysfg, {x: bendyboysfg.x, y: bendyboysfg.y + 300, alpha: 0.0}, 1.5, {ease: FlxEase.quadOut});
@@ -9256,7 +9252,7 @@ class PlayState extends MusicBeatState
 
 						new FlxTimer().start(0.66, function(tmr:FlxTimer)
 						{
-							jumpscareStatic.visible = true;
+							jumpscareStatic.alpha = 1;
 							FlxTween.color(jumpscareStatic, 1.85, FlxColor.WHITE, FlxColor.BLACK, {ease: FlxEase.quadOut});
 							bendy.alpha = 0.0;
 						});
@@ -9619,8 +9615,6 @@ class PlayState extends MusicBeatState
 					});
 					pushStepEvent(1792, function()
 					{
-						finalStretchwhiteBG.visible = true;
-						finalStretchwhiteBG.alpha = 0.0001;
 						FlxTween.tween(finalStretchwhiteBG, {alpha: 1.0}, 1.5, {ease: FlxEase.quadInOut});
 						FlxTween.color(boyfriend, 1.5, FlxColor.WHITE, FlxColor.BLACK, {ease: FlxEase.quadInOut});
 						FlxTween.color(dad, 1.5, FlxColor.WHITE, FlxColor.BLACK, {ease: FlxEase.quadInOut});
@@ -9631,7 +9625,7 @@ class PlayState extends MusicBeatState
 					{
 						FlxG.camera.zoom += 0.10;
 						defaultCamZoom = oldDefaultCamZoom;
-						finalStretchwhiteBG.visible = false;
+						finalStretchwhiteBG.alpha = 0.0001;
 						boyfriend.color = FlxColor.WHITE;
 						dad.color = FlxColor.WHITE;
 						if (finalStretchBarTop != null)
@@ -10376,9 +10370,9 @@ class PlayState extends MusicBeatState
 				if (frontbg != null)
 				{
 					for (i in frontbg)
-						i.alpha = 0;
+						i.alpha = 0.00001;
 					for (i in backbg)
-						i.alpha = 0;
+						i.alpha = 0.00001;
 					if (emitt != null)
 					{
 						for (i in emitt)
@@ -10675,11 +10669,11 @@ class PlayState extends MusicBeatState
 			case 'normal':
 				nightmareSansBgs[0].animation.play('normal', true);
 				nightmareSansBgs[0].alpha = 1;
-				nightmareSansBgs[1].alpha = 0;
+				nightmareSansBgs[1].alpha = 0.00001;
 			case 'beatdrop':
 				nightmareSansBgs[0].animation.play('beatdrop', true);
 				nightmareSansBgs[0].alpha = 1;
-				nightmareSansBgs[1].alpha = 0;
+				nightmareSansBgs[1].alpha = 0.00001;
 			case 'beatdropFinished':
 				nightmareSansBgs[0].animation.play('beatDropFinish', true);
 				nightmareSansBgs[0].alpha = 1;
@@ -12744,13 +12738,5 @@ class PlayState extends MusicBeatState
 			else
 				trace('is null');
 		}
-	}
-
-	public function preload(graphic:String, ?lib:String) // preload assets
-	{
-		var newthing:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image(graphic, lib));
-		newthing.visible = false;
-		add(newthing);
-		remove(newthing);
 	}
 }

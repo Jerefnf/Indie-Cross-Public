@@ -105,7 +105,7 @@ class Notesplash extends FlxSprite
 
 		animation.finishCallback = function(name)
 		{
-			alpha = 0;
+			alpha = 0.00001;
 			kill();
 			destroy();
 		}

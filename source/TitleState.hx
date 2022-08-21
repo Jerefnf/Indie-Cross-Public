@@ -121,7 +121,7 @@ class TitleState extends MusicBeatState
 		add(blackOverlay);
 
 		creditsText = new FlxText(0, FlxG.height - 26, 0, "the credits would be shown in the menu", 18);
-		creditsText.alpha = 0;
+		creditsText.alpha = 0.00001;
 		creditsText.setFormat(HelperFunctions.returnMenuFont(creditsText), 18, FlxColor.WHITE, RIGHT);
 		creditsText.scrollFactor.set();
 		creditsText.screenCenter(X);
@@ -153,7 +153,7 @@ class TitleState extends MusicBeatState
 			#else
 			skipText = new FlxText(0, FlxG.height - 26, 0, "Press Enter to skip", 18);
 			#end
-			skipText.alpha = 0;
+			skipText.alpha = 0.00001;
 			skipText.setFormat(HelperFunctions.returnMenuFont(skipText), 18, FlxColor.WHITE, RIGHT);
 			skipText.scrollFactor.set();
 			skipText.screenCenter(X);
@@ -188,7 +188,7 @@ class TitleState extends MusicBeatState
 		{
 			vidSpr.visible = false;
 			videoDone = true;
-			blackOverlay.alpha = 0;
+			blackOverlay.alpha = 0.00001;
 
 			if (FlxG.sound.music == null || !FlxG.sound.music.active)
 			{

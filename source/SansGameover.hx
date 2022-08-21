@@ -61,7 +61,7 @@ class SansGameover extends MusicBeatSubstate
 		gameover.y -= 150;
 		gameover.antialiasing = false;
 		gameover.scrollFactor.set();
-		gameover.alpha = 0;
+		gameover.alpha = 0.00001;
 		add(gameover);
 
 		new FlxTimer().start(1.3, function(tmr:FlxTimer)

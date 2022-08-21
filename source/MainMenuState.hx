@@ -50,7 +50,7 @@ class LoginScreen extends FlxTypedSpriteGroup<FlxSprite>
 
 		controls = c;
 
-		alpha = 0;
+		alpha = 0.00001;
 
 		logFade = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		logFade.origin.set();
@@ -240,8 +240,6 @@ class MainMenuState extends MusicBeatState
 	final name:String = Lib.application.meta["name"];
 	final version:String = Lib.application.meta["version"];
 
-	static final commitHash:String = GitHash.getGitCommitHash();
-
 	static var curSelected:Int = 0;
 
 	var disableInput:Bool = false;
@@ -309,9 +307,6 @@ class MainMenuState extends MusicBeatState
 		var versionText:FlxText = new FlxText(0, FlxG.height - 22);
 		versionText.setFormat(HelperFunctions.returnMenuFont(versionText), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionText.text = name + " v." + version;
-		#if debug
-		versionText.text = name + " v." + version + " commit " + commitHash;
-		#end
 		add(versionText);
 
 		/*if (!FlxG.save.data.stopGJ && !GameJoltAPI.getStatus())
@@ -364,6 +359,7 @@ class MainMenuState extends MusicBeatState
 
 		#if android
 		addVirtualPad(UP_DOWN, A_B_C);
+		virtualPad.y = -22;
 		#end
 
 		if (showCredits)
@@ -381,7 +377,7 @@ class MainMenuState extends MusicBeatState
 			#else
 			skipText = new FlxText(0, FlxG.height - 26, 0, "Press Enter to skip", 18);
 			#end
-			skipText.alpha = 0;
+			skipText.alpha = 0.00001;
 			skipText.setFormat(HelperFunctions.returnMenuFont(skipText), 18, FlxColor.WHITE, RIGHT);
 			skipText.scrollFactor.set();
 			skipText.screenCenter(X);

@@ -97,13 +97,13 @@ class KeyBindMenu extends FlxSubState
 		infoText.setFormat("VCR OSD Mono", 24, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		infoText.borderSize = 3;
 		infoText.borderQuality = 1;
-		infoText.alpha = 0;
+		infoText.alpha = 0.00001;
 		infoText.screenCenter(FlxAxes.X);
 		add(infoText);
 		add(keyTextDisplay);
 
-		blackBox.alpha = 0;
-		keyTextDisplay.alpha = 0;
+		blackBox.alpha = 0.00001;
+		keyTextDisplay.alpha = 0.00001;
 
 		FlxTween.tween(keyTextDisplay, {alpha: 1}, 1, {ease: FlxEase.expoInOut});
 		FlxTween.tween(infoText, {alpha: 1}, 1.4, {ease: FlxEase.expoInOut});
