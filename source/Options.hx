@@ -227,12 +227,12 @@ class HitboxesAlpha extends Option
 
         override function getValue():String
 	{
-		return "Current Hitbox Opacity: " + FlxG.save.data.hitboxOpacity;
+		return "Current Hitbox Opacity: " + Std.int(FlxG.save.data.hitboxOpacity * 100) + "%";
 	}
 
 	private override function updateDisplay():String
 	{
-		return "hitbox opacity " + FlxG.save.data.hitboxOpacity;
+		return "hitbox opacity " + Std.int(FlxG.save.data.hitboxOpacity * 100) + "%";
 	}
 }
 
