@@ -24,7 +24,6 @@ class Paths
 	public static function clearUnusedMemory()
 	{
 		// clear non local assets in the tracked assets list
-		var counter:Int = 0;
 		for (key in currentTrackedAssets.keys())
 		{
 			// if it is not currently contained within the used local assets
@@ -49,7 +48,6 @@ class Paths
 					FlxG.bitmap._cache.remove(key);
 					obj.destroy();
 					currentTrackedAssets.remove(key);
-					counter++;
 				}
 			}
 		}
@@ -64,7 +62,6 @@ class Paths
 	public static function clearStoredMemory(?cleanUnused:Bool = false)
 	{
 		// clear anything not in the tracked assets list
-		var counterAssets:Int = 0;
 
 		@:privateAccess
 		for (key in FlxG.bitmap._cache.keys())
@@ -77,12 +74,10 @@ class Paths
 				OpenFlAssets.cache.clear(key);
 				FlxG.bitmap._cache.remove(key);
 				obj.destroy();
-				counterAssets++;
 			}
 		}
 
 		// clear all sounds that are cached
-		var counterSound:Int = 0;
 		for (key in currentTrackedSounds.keys())
 		{
 			if (!localTrackedAssets.contains(key) && key != null)
@@ -96,15 +91,9 @@ class Paths
 		}
 
 		// clear everything everything that's left
-		var counterLeft:Int = 0;
 		for (key in OpenFlAssets.cache.getKeys())
-		{
 			if (!localTrackedAssets.contains(key) && key != null)
-			{
 				OpenFlAssets.cache.clear(key);
-				counterLeft++;
-			}
-		}
 
 		// flags everything to be cleared out next unused memory clear
 		localTrackedAssets = [];
