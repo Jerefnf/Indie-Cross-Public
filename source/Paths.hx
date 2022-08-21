@@ -230,7 +230,7 @@ class Paths
 					// put here ram render
                                         newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
                                 } else {
-                                        var texture:Any;
+                                        var texture;
                                         if (FlxG.save.data.render == 1) {
 					    	texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
                                         }
