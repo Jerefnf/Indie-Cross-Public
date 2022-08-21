@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
+import openfl.display3D.textures.Texture;
 import openfl.media.Sound;
 import openfl.system.System;
 import openfl.utils.AssetType;
@@ -14,10 +15,15 @@ class Paths
 {
 	inline public static var SOUND_EXT = "ogg";
 
+	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
+	public static var currentTrackedTextures:Map<String, Texture> = [];
+	public static var currentTrackedSounds:Map<String, Sound> = [];
+
 	// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory()
 	{
 		// clear non local assets in the tracked assets list
+		var counter:Int = 0;
 		for (key in currentTrackedAssets.keys())
 		{
 			// if it is not currently contained within the used local assets
@@ -28,13 +34,25 @@ class Paths
 				@:privateAccess
 				if (obj != null)
 				{
+					var isTexture:Bool = currentTrackedTextures.exists(key);
+					if (isTexture)
+					{
+						var texture = currentTrackedTextures.get(key);
+						texture.dispose();
+						texture = null;
+						currentTrackedTextures.remove(key);
+					}
 					OpenFlAssets.cache.removeBitmapData(key);
+					OpenFlAssets.cache.clearBitmapData(key);
+					OpenFlAssets.cache.clear(key);
 					FlxG.bitmap._cache.remove(key);
 					obj.destroy();
 					currentTrackedAssets.remove(key);
+					counter++;
 				}
 			}
 		}
+
 		// run the garbage collector for good measure lmfao
 		System.gc();
 	}
@@ -45,6 +63,8 @@ class Paths
 	public static function clearStoredMemory(?cleanUnused:Bool = false)
 	{
 		// clear anything not in the tracked assets list
+		var counterAssets:Int = 0;
+
 		@:privateAccess
 		for (key in FlxG.bitmap._cache.keys())
 		{
@@ -52,27 +72,44 @@ class Paths
 			if (obj != null && !currentTrackedAssets.exists(key))
 			{
 				OpenFlAssets.cache.removeBitmapData(key);
+				OpenFlAssets.cache.clearBitmapData(key);
+				OpenFlAssets.cache.clear(key);
 				FlxG.bitmap._cache.remove(key);
 				obj.destroy();
+				counterAssets++;
 			}
 		}
 
 		// clear all sounds that are cached
+		var counterSound:Int = 0;
 		for (key in currentTrackedSounds.keys())
 		{
 			if (!localTrackedAssets.contains(key) && key != null)
 			{
-				// trace('test: ' + dumpExclusions, key);
+				OpenFlAssets.cache.removeSound(key);
+				OpenFlAssets.cache.clearSounds(key);
 				OpenFlAssets.cache.clear(key);
 				currentTrackedSounds.remove(key);
+				counterSound++;
 			}
 		}
+
+		// clear everything everything that's left
+		var counterLeft:Int = 0;
+		for (key in OpenFlAssets.cache.getKeys())
+		{
+			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
+			{
+				OpenFlAssets.cache.clear(key);
+				counterLeft++;
+			}
+		}
+
 		// flags everything to be cleared out next unused memory clear
 		localTrackedAssets = [];
 		OpenFlAssets.cache.clear("songs");
 	}
 
-	static public var currentModDirectory:String = '';
 	static public var currentLevel:String;
 
 	static public function setCurrentLevel(name:String)
@@ -178,31 +215,42 @@ class Paths
 		return returnSound('songs', '${songLowercase}/Inst-easy', null, cache);
 	}
 
-	inline static public function image(key:String, ?library:String):FlxGraphic
-		return returnGraphic(key, library);
+	inline static public function image(key:String, ?library:String, ?gpuRender:Bool = false):FlxGraphic
+		return returnGraphic(key, library, gpuRender);
 
 	inline static public function font(key:String)
 		return 'assets/fonts/$key';
 
 	inline static public function getSparrowAtlas(key:String, ?library:String):FlxAtlasFrames
-		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
+		return FlxAtlasFrames.fromSparrow(image(key, library, true), file('images/$key.xml', library));
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library, true), file('images/$key.txt', library));
 
-	// completely rewritten asset loading? fuck!
-	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
-
-	public static function returnGraphic(key:String, ?library:String):FlxGraphic
+	public static function returnGraphic(key:String, ?library:String, ?gpuRender:Bool = false):FlxGraphic
 	{
 		var path = getPath('images/$key.png', IMAGE, library);
 		if (OpenFlAssets.exists(path, IMAGE))
 		{
 			if (!currentTrackedAssets.exists(path))
 			{
-				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(OpenFlAssets.getBitmapData(path), false, path);
+				var bitmap:BitmapData = OpenFlAssets.getBitmapData(path, false);
+				var newGraphic:FlxGraphic = null;
+				if (gpuRender)
+				{
+					var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+					texture.uploadFromBitmapData(bitmap);
+					currentTrackedTextures.set(key, texture);
+					bitmap.dispose();
+					bitmap.disposeImage();
+					bitmap = null;
+					newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, key);
+				}
+				else
+					newGraphic = FlxGraphic.fromBitmapData(bitmap, false);
+
 				newGraphic.persist = true;
-				currentTrackedAssets.set(path, newGraphic);
+				currentTrackedAssets.set(key, newGraphic);
 			}
 			localTrackedAssets.push(path);
 			return currentTrackedAssets.get(path);
@@ -211,8 +259,6 @@ class Paths
 		trace('oh no its returning null NOOOO');
 		return null;
 	}
-
-	public static var currentTrackedSounds:Map<String, Sound> = [];
 
 	public static function returnSound(path:String, key:String, ?library:String, ?cache:Bool = true):Sound
 	{
