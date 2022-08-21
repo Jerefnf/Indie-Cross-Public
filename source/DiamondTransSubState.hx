@@ -7,14 +7,10 @@ import flixel.FlxSubState;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import openfl.filters.BitmapFilter;
-import openfl.filters.ShaderFilter;
-
 
 class DiamondTransSubState extends FlxSubState
 {
-	var filters:Array<BitmapFilter> = [];
-        var shader:ShaderFilter = new ShaderFilter(new DiamondTransShader());
+	var shader:DiamondTransShader;
 	var rect:FlxSprite;
 	var tween:FlxTween;
 
@@ -41,26 +37,16 @@ class DiamondTransSubState extends FlxSubState
 
 		FlxG.cameras.add(camera, false);
 
-		// shader = new DiamondTransShader();
+		shader = new DiamondTransShader();
 
-		shader.shader.data.progress.value = [0.0];
-		shader.shader.data.reverse.value = [false];
-                shader.shader.data.diamondPixelSize.value = [30.0];
-                filters.push(shader);
+		shader.progress.value = [0.0];
+		shader.reverse.value = [false];
 
 		rect = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF000000);
 		rect.scrollFactor.set();
+		rect.shader = shader;
 		rect.alpha = 0.00001;
-
-                var camlol = new flixel.FlxCamera();
-		FlxG.cameras.add(camlol, false);
-		camlol.bgColor.alpha = 0;
-                camlol.filtersEnabled = true;
-                camlol.setFilters(filters);
-
-                rect.cameras = [camlol];
-                add(rect);
-                
+		add(rect);
 
 		if (fi)
 			fadeIn();
@@ -75,8 +61,8 @@ class DiamondTransSubState extends FlxSubState
 		trace("fade initiated");
 
 		rect.alpha = 1;
-		shader.shader.data.progress.value = [from];
-		shader.shader.data.reverse.value = [reverse];
+		shader.progress.value = [from];
+		shader.reverse.value = [reverse];
 
 		tween = FlxTween.num(from, to, duration, {
 			ease: FlxEase.linear,
@@ -91,7 +77,7 @@ class DiamondTransSubState extends FlxSubState
 			}
 		}, function(num:Float)
 		{
-			shader.shader.data.progress.value = [num];
+			shader.progress.value = [num];
 		});
 	}
 
