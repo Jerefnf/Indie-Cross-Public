@@ -108,7 +108,7 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.music.stop();
 
 		if (FlxG.save.data.givenCode || MainMenuState.debugTools)
-			secretCodes.insert(2, 'saness');
+			secretCodes.insert(2, '999414666');
 
 		switch (freeplayType)
 		{
@@ -583,7 +583,7 @@ class FreeplayState extends MusicBeatState
 
 	function secretCodeFunction(letter:String)
 	{
-		if (allowedKeys.contains(letter.toLowerCase()))
+		if (allowedKeys.contains(letter))
 		{
 			codeBuffer += codeStringFormat(letter);
 			if (codeBuffer.length > 32)
@@ -592,9 +592,8 @@ class FreeplayState extends MusicBeatState
 				codeBuffer = '';
 			}
 
-			for (wordRaw in secretCodes)
+			for (word in secretCodes)
 			{
-				var word:String = wordRaw.toUpperCase(); // idk just incase
 				if (word.contains(codeBuffer) && codeBuffer.length > 0)
 				{
 					FlxG.sound.play(Paths.sound('type', 'preload'), 1.5);
@@ -610,10 +609,7 @@ class FreeplayState extends MusicBeatState
 					#end
 					codeAccepted(word); // IT WORKS!!! ✅
 				}
-			}
 
-			for (word in secretCodes)
-			{
 				if (!word.toUpperCase().contains(codeBuffer.substring(0, codeBuffer.length - 1))
 					|| word.toUpperCase().contains(codeBuffer))
 					break;
