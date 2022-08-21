@@ -23,7 +23,7 @@ class OptionsMenu extends MusicBeatState
 		new OptionCategory("Gameplay", [
 			new DFJKOption(),
 			#if android
-			new MechsInputVariants("Variants of inputs for mechanics."), new GradientHitboxes("Should hitboxes have gradient colors or no"), new HitboxesAlpha("Hitboxes Opacity or contrast whatever."),
+			new MechsInputVariants("Variants of inputs for mechanics."),
 			#end
 			new DownscrollOption("Change the layout of the strumline."),
 			new GhostTapOption("Ghost Tapping is when you tap a direction and it doesn't give you a miss."),
@@ -40,11 +40,16 @@ class OptionsMenu extends MusicBeatState
 			new CamZoomOption("Toggle the camera zoom in-game."),
 			new AccuracyOption("Display accuracy information."),
 			new NPSDisplayOption("Shows your current Notes Per Second."),
-			new ShowMS("Show the MS count for each note press")
+			new ShowMS("Show the MS count for each note press"),
+                        #if android
+                        new GradientHitboxes("Should hitboxes have gradient colors or no"),
+                        new HitboxesAlpha("Hitboxes Opacity or contrast whatever."),
+                        #end
 		]),
 		new OptionCategory("Performance", [
 			new Photosensitive("Turn off visual effects that may harm your vision."),
 			new HighQuality("Enable low quality mode for a smoother playing experience."),
+                        new RenderTypes("select rendering type between ram, gpu flash or gpu openfl);
 		]),
 		new OptionCategory("Window", [
 			#if !android
