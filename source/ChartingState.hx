@@ -582,13 +582,13 @@ class ChartingState extends MusicBeatState
 
 		if (Main.hiddenSongs.contains(daSong.toLowerCase()))
 		{
-			FlxG.sound.playMusic(Paths.instHidden(daSong), 0.6);
-			vocals = new FlxSound().loadEmbedded(Paths.voicesHidden(daSong));
+			FlxG.sound.playMusic(Paths.inst(daSong, true, 'hidden'), 0.6);
+			vocals = new FlxSound().loadEmbedded(Paths.voices(daSong, true, 'hidden'));
 		}
 		else
 		{
-			FlxG.sound.playMusic(Paths.inst(daSong), 0.6);
-			vocals = new FlxSound().loadEmbedded(Paths.voices(daSong));
+			FlxG.sound.playMusic(Paths.inst(daSong, true, 'none'), 0.6);
+			vocals = new FlxSound().loadEmbedded(Paths.voices(daSong, true, 'none'));
 		}
 
 		// WONT WORK FOR TUTORIAL OR TEST SONG!!! REDO LATER

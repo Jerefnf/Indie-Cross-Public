@@ -168,23 +168,33 @@ class Paths
 	inline static public function music(key:String, ?library:String, ?cache:Bool = true):Sound
 		return returnSound('music', key, library, cache);
 
-	inline static public function voices(song:String, ?cache:Bool = true)
-		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Voices', null, cache);
+	inline static public function voices(song:String, ?cache:Bool = true, ?type:String = 'none')
+	{
+		final songFormat:String = StringTools.replace(song, " ", "-").toLowerCase();
+		switch (type)
+		{
+			case 'none':
+				return returnSound('songs', songFormat + '/Voices', null, cache);
+			case 'hidden':
+				return returnSound('songs', songFormat + '/Voices', 'hiddenContent', cache);
+			case 'easy':
+				return returnSound('songs', songFormat + '/Voices-easy', null, cache);
+		}
+	}
 
-	inline static public function voicesHidden(song:String, ?cache:Bool = true)
-		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Voices', 'hiddenContent', cache);
-
-	inline static public function voicesEasy(song:String, ?cache:Bool = true)
-		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Voices-easy', null, cache);
-
-	inline static public function inst(song:String, ?cache:Bool = true)
-		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Inst', null, cache);
-
-	inline static public function instHidden(song:String, ?cache:Bool = true)
-		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Inst', 'hiddenContent', cache);
-
-	inline static public function instEasy(song:String, ?cache:Bool = true)
-		return returnSound('songs', StringTools.replace(song, " ", "-").toLowerCase() + '/Inst-easy', null, cache);
+	inline static public function inst(song:String, ?cache:Bool = true, ?type:String = 'none')
+	{
+		final songFormat:String = StringTools.replace(song, " ", "-").toLowerCase();
+		switch (type)
+		{
+			case 'none':
+				return returnSound('songs', songFormat + '/Inst', null, cache);
+			case 'hidden':
+				return returnSound('songs', songFormat + '/Inst', 'hiddenContent', cache);
+			case 'easy':
+				return returnSound('songs', songFormat + '/Inst-easy', null, cache);
+		}
+	}
 
 	inline static public function image(key:String, ?library:String):FlxGraphic
 		return returnGraphic(key, library);

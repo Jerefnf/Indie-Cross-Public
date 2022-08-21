@@ -4144,16 +4144,7 @@ class PlayState extends MusicBeatState
 		songStarted = true;
 		previousFrameTime = FlxG.game.ticks;
 
-		// uhhhhh cock
-		if (Main.hiddenSongs.contains(PlayState.SONG.song.toLowerCase()))
-		{
-			FlxG.sound.playMusic(Paths.instHidden(PlayState.SONG.song), 1, false);
-		}
-		else
-		{
-			FlxG.sound.music.play();
-		}
-
+		FlxG.sound.music.play();
 		FlxG.sound.music.looped = false;
 
 		if (vocals != null)
@@ -4214,13 +4205,17 @@ class PlayState extends MusicBeatState
 
 		if (SONG.song.toLowerCase() == 'last-reel' && storyDifficulty == 0)
 		{
-			FlxG.sound.playMusic(Paths.instEasy(PlayState.SONG.song), 1, false);
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song, true, 'easy'), 1, false);
 		}
 		else
 		{
-			if (!Main.hiddenSongs.contains(PlayState.SONG.song.toLowerCase()))
+			if (Main.hiddenSongs.contains(PlayState.SONG.song.toLowerCase()))
 			{
-				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song, true, 'hidden'), 1, false);
+			}
+			else
+			{
+				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song, true, 'none'), 1, false);
 			}
 		}
 
@@ -4228,17 +4223,17 @@ class PlayState extends MusicBeatState
 
 		if (SONG.song.toLowerCase() == 'last-reel' && storyDifficulty == 0)
 		{
-			vocals = new FlxSound().loadEmbedded(Paths.voicesEasy(PlayState.SONG.song));
+			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, true, 'easy'));
 		}
 		else
 		{
 			if (Main.hiddenSongs.contains(PlayState.SONG.song.toLowerCase()))
 			{
-				vocals = new FlxSound().loadEmbedded(Paths.voicesHidden(PlayState.SONG.song));
+				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, true, 'hidden'));
 			}
 			else
 			{
-				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, true, 'none'));
 			}
 		}
 

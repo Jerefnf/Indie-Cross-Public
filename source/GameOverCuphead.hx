@@ -54,7 +54,7 @@ class GameOverCuphead extends MusicBeatSubstate
 
 		trace('curtime is: ' + time + ' totaltime is: ' + totalTime);
 
-		deadMusic = new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song), true, true);
+		deadMusic = new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song, true, 'none'), true, true);
 		deadMusic.fadeOut(2, 0.4);
 		deadMusic.play(false, Conductor.songPosition);
 		deadMusic.ID = 9000;
