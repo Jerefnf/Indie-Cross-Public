@@ -6,7 +6,6 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.mouse.FlxMouseEventManager;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -233,7 +232,7 @@ class CreditsMenu extends MusicBeatState
 			"https://www.youtube.com/channel/UCOItBqiAAbWEdm21Mcv3g_Q"
 		],
 		[
-			'BBpanzu',
+			'Bbpanzu',
 			"Know your worth.",
 			"Musician",
 			"0",
@@ -358,7 +357,6 @@ class CreditsMenu extends MusicBeatState
 
 			add(smallIcon);
 			smallIcon.ID = i;
-			FlxMouseEventManager.add(smallIcon, null, null, hoverCallback, null, false, true, false);
 
 			credIcons.push(smallIcon);
 		}
@@ -452,17 +450,6 @@ class CreditsMenu extends MusicBeatState
 
 	var lthanks:FlxText;
 	var rthanks:FlxText;
-
-	function hoverCallback(object:FlxObject)
-	{
-		if (!thanksOpen)
-		{
-			trace("overlap " + object.ID);
-			FlxG.sound.play(Paths.sound('scrollMenu'));
-			updateSelection(object.ID);
-			curIcon = object.ID;
-		}
-	}
 
 	function backOut()
 	{
@@ -646,6 +633,8 @@ class CreditsMenu extends MusicBeatState
 				credLargeName.text = 'RiverOaken';
 			case 'Gedehari':
 				credLargeName.text = 'Sqirra-RNG';
+			case 'Bbpanzu':
+				credLargeName.text = 'BBpanzu';
 			default:
 				credRoleText.offset.x = 0;
 				credLargeName.offset.x = 0;
