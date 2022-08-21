@@ -101,11 +101,6 @@ class Paths
 			}
 		}
 
-		// clear everything everything that's left
-		for (key in OpenFlAssets.cache.getKeys())
-			if (!localTrackedAssets.contains(key) && key != null)
-				OpenFlAssets.cache.clear(key);
-
 		// flags everything to be cleared out next unused memory clear
 		localTrackedAssets = [];
 	}
