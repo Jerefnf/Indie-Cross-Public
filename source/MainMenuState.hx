@@ -366,7 +366,7 @@ class MainMenuState extends MusicBeatState
 		{
 			videoDone = false;
 
-			vidSpr = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+			vidSpr = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 			add(vidSpr);
 
 			if (FlxG.sound.music != null)

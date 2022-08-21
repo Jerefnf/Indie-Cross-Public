@@ -172,7 +172,7 @@ class GameOverSubstate extends MusicBeatSubstate
 					};
 				}
 			case 'gose':
-				vidSpr = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+				vidSpr = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 				add(vidSpr);
 
 				var video:VideoHandler = new VideoHandler();

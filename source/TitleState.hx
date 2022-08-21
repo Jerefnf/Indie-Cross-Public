@@ -127,7 +127,7 @@ class TitleState extends MusicBeatState
 		creditsText.screenCenter(X);
 		add(creditsText);
 
-		vidSpr = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		vidSpr = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(vidSpr);
 
 		startIntro();

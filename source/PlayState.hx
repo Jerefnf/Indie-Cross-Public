@@ -3427,11 +3427,6 @@ class PlayState extends MusicBeatState
 			video.playMP4(SUtil.getPath() + Paths.video(vid), false, cutsceneSpr, false, false, false);
 			videoPlaying = true;
 
-			new FlxTimer().start(0.10, function(tmr:FlxTimer) // keeps that white flash from happening
-			{
-				cutsceneSpr.color = FlxColor.WHITE;
-			});
-
 			var accessibilitySubtitles:FlxText;
 			accessibilitySubtitles = new FlxText(0, FlxG.height - 84, 0, "Test", 32);
 			accessibilitySubtitles.alpha = 0.00001;
@@ -7439,16 +7434,9 @@ class PlayState extends MusicBeatState
 			case 'last-reel':
 				video.playMP4(SUtil.getPath() + Paths.video('bendy/4ez'), false, cutsceneSpr, false, true);
 			case 'nightmare-run':
-				{
-					video.playMP4(SUtil.getPath() + Paths.video('bendy/5'), false, cutsceneSpr, false, true);
-					pushSubtitle('Those who mess with the Ink Demon...', 7.833, 11.542, false);
-					pushSubtitle('shall pay.', 11.542, 13.833, false);
-				}
-
-				new FlxTimer().start(0.10, function(tmr:FlxTimer) // keeps that white flash from happening
-				{
-					cutsceneSpr.color = FlxColor.WHITE;
-				});
+				video.playMP4(SUtil.getPath() + Paths.video('bendy/5'), false, cutsceneSpr, false, true);
+				pushSubtitle('Those who mess with the Ink Demon...', 7.833, 11.542, false);
+				pushSubtitle('shall pay.', 11.542, 13.833, false);
 		}
 	}
 
