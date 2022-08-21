@@ -157,6 +157,9 @@ class AchievementsMenuState extends MusicBeatState
 		if (FlxG.save.data.achievementsIndie[Achievements.achievements[curSelected].id])
 		{
 			FlxG.sound.play(Paths.sound('confirmMenu'));
+			#if android
+			removeVirtualPad();
+			#end
 			openSubState(new InspectReward());
 		}
 		else

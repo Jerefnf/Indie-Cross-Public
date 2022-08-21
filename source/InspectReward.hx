@@ -57,11 +57,15 @@ class InspectReward extends MusicBeatSubstate
 		descText.screenCenter(X);
 		descText.alpha = 0.00001;
 
-		trace(icon.scale.x, icon.scale.y);
+		#if android
+		addVirtualPad(NONE, B);
+		virtualPad.alpha = 0.00001;
+		#end
 
 		FlxTween.tween(bg, {alpha: 0.85}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(icon, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(descText, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(virtualPad, {alpha: 1}, entertime, {ease: FlxEase.quartInOut});
 	}
 
 	override public function update(elapsed:Float):Void
