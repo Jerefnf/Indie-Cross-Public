@@ -40,6 +40,10 @@ class Caching extends MusicBeatState
 
 		super.create();
 
+                FlxG.save.bind(Main.curSave, 'indiecross');
+                PlayerSettings.init();
+		KadeEngineData.initSave();
+
 		screen = new LoadingScreen();
 		screen.max = 9;
 		add(screen);
@@ -55,14 +59,9 @@ class Caching extends MusicBeatState
 		debug = true;
 		#end
 
-		FlxG.save.bind(Main.curSave, 'indiecross');
-
 		#if desktop
 		DiscordClient.initialize();
 		#end
-
-		PlayerSettings.init();
-		KadeEngineData.initSave();
 
 		Highscore.load();
 		PlayerSettings.player1.controls.loadKeyBinds();
