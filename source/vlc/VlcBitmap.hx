@@ -61,7 +61,7 @@ class VlcBitmap extends Bitmap
 	//-----------------------------------------------------------------------------------
 	var bufferMem:Array<UInt8>;
 	#if cpp
-	var libvlc:LibVLC;
+	var libvlc:LibVLC = LibVLC.create();
 	#end
 
 	// ===================================================================================
@@ -86,31 +86,25 @@ class VlcBitmap extends Bitmap
 		super(null, null, true);
 
 		#if cpp
-		init();
+		if (stage != null)
+			init();
+		else
+			addEventListener(Event.ADDED_TO_STAGE, init);
 		#end
-	}
-
-	function mThread()
-	{
-		init();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	function init()
+	function init(?e:Event):Void
 	{
-		#if cpp
-		addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-		#end
-	}
+		if (hasEventListener(Event.ADDED_TO_STAGE))
+			removeEventListener(Event.ADDED_TO_STAGE, init);
 
-	function onAddedToStage(e:Event):Void
-	{
-		removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		if (!stage.hasEventListener(Event.ENTER_FRAME))
+			stage.addEventListener(Event.RESIZE, onResize);
 
-		libvlc = LibVLC.create();
-		stage.addEventListener(Event.RESIZE, onResize);
-		stage.addEventListener(Event.ENTER_FRAME, vLoop);
+		if (!stage.hasEventListener(Event.ENTER_FRAME))
+			stage.addEventListener(Event.ENTER_FRAME, onUpdate);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -279,7 +273,7 @@ class VlcBitmap extends Bitmap
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	function onResize(e:Event):Void
+	function onResize(?e:Event):Void
 	{
 		set_width(calc(0));
 		set_height(calc(1));
@@ -355,7 +349,7 @@ class VlcBitmap extends Bitmap
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	function vLoop(e)
+	function onUpdate(?e:Event):Void
 	{
 		#if cpp
 		checkFlags();
@@ -550,7 +544,11 @@ class VlcBitmap extends Bitmap
 		libvlc.stop();
 		#end
 
-		stage.removeEventListener(Event.ENTER_FRAME, vLoop);
+		if (stage.hasEventListener(Event.RESIZE))
+			stage.removeEventListener(Event.RESIZE, onResize);
+
+		if (stage.hasEventListener(Event.ENTER_FRAME))
+			stage.removeEventListener(Event.ENTER_FRAME, onUpdate);
 
 		if (texture != null)
 		{

@@ -591,6 +591,7 @@ class FreeplayState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('delete', 'preload'));
 				codeBuffer = '';
 			}
+
 			for (wordRaw in secretCodes)
 			{
 				var word:String = wordRaw.toUpperCase(); // idk just incase
