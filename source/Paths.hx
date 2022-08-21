@@ -209,8 +209,8 @@ class Paths
 		{
 			if (!currentTrackedAssets.exists(path))
 			{
+				var newGraphic:FlxGraphic = null;
                                 var bitmap:BitmapData = OpenFlAssets.getBitmapData(path, false);
-				var newGraphic:FlxGraphic;
 
 				switch (FlxG.save.data.render)
 				{
