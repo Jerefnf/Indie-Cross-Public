@@ -39,7 +39,7 @@ class DiamondTransSubState extends FlxSubState
 
 		shader = new DiamondTransShader();
 
-		shader.progress.value = [0];
+		shader.progress.value = [0.0];
 		shader.reverse.value = [false];
 
 		rect = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF000000);
@@ -83,12 +83,12 @@ class DiamondTransSubState extends FlxSubState
 
 	function fadeIn()
 	{
-		__fade(0, 1, true);
+		__fade(0.0, 1.0, true);
 	}
 
 	function fadeOut()
 	{
-		__fade(0, 1, false);
+		__fade(0.0, 1.0, false);
 	}
 
 	function _closeCallback()
