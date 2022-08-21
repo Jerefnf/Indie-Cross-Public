@@ -241,17 +241,17 @@ class Paths
 				{
 					var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
 					texture.uploadFromBitmapData(bitmap);
-					currentTrackedTextures.set(key, texture);
+					currentTrackedTextures.set(path, texture);
 					bitmap.dispose();
 					bitmap.disposeImage();
 					bitmap = null;
-					newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, key);
+					newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
 				}
 				else
-					newGraphic = FlxGraphic.fromBitmapData(bitmap, false);
+					newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
 
 				newGraphic.persist = true;
-				currentTrackedAssets.set(key, newGraphic);
+				currentTrackedAssets.set(path, newGraphic);
 			}
 			localTrackedAssets.push(path);
 			return currentTrackedAssets.get(path);
