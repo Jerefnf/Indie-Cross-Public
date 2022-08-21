@@ -3009,7 +3009,10 @@ class PlayState extends MusicBeatState
 		if (curStage == 'hall')
 		{
 			if (SONG.song.toLowerCase() == 'final-stretch')
+			{
 				waterFallEvent();
+				waterFallEvent();
+			}
 			else if (SONG.song.toLowerCase() == 'sansational' || SONG.song.toLowerCase() == 'burning-in-hell')
 			{
 				transToCombatUI();
