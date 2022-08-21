@@ -254,7 +254,7 @@ class Paths
 
 		var gottenPath:String = folder + getPath('$path/$key.$SOUND_EXT', SOUND, library);
 
-		if (OpenFlAssets.exists(path, SOUND))
+		if (OpenFlAssets.exists(gottenPath, SOUND))
 		{
 			if (!currentTrackedSounds.exists(gottenPath))
 				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(gottenPath, cache));
