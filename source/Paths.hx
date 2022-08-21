@@ -9,6 +9,7 @@ import openfl.media.Sound;
 import openfl.system.System;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
+import openfl.Lib;
 
 using StringTools;
 
@@ -223,11 +224,19 @@ class Paths
 		{
 			if (!currentTrackedAssets.exists(path))
 			{
-				var bitmap:BitmapData = OpenFlAssets.getBitmapData(path, false);
+                                var bitmap:BitmapData = OpenFlAssets.getBitmapData(path, false);
 				var newGraphic:FlxGraphic = null;
-				if (gpuRender)
-				{
-					var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+                                if (FlxG.save.data.render == 0) {
+					// put here ram render
+                                        newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
+                                } else {
+                                        var texture:Any;
+                                        if (FlxG.save.data.render == 1) {
+					    	texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+                                        }
+                                        if (FlxG.save.data.render == 2) {
+                                            	texture = Lib.current.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+                                        }
 					texture.uploadFromBitmapData(bitmap);
 					currentTrackedTextures.set(path, texture);
 					bitmap.dispose();
@@ -235,9 +244,6 @@ class Paths
 					bitmap = null;
 					newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
 				}
-				else
-					newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
-
 				newGraphic.persist = true;
 				currentTrackedAssets.set(path, newGraphic);
 			}
