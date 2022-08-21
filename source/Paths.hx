@@ -168,7 +168,7 @@ class Paths
 	inline static public function music(key:String, ?library:String, ?cache:Bool = true):Sound
 		return returnSound('music', key, library, cache);
 
-	inline static public function voices(song:String, ?cache:Bool = true, ?type:String = 'none')
+	inline static public function voices(song:String, ?cache:Bool = true, ?type:String = 'none'):Sound
 	{
 		final songFormat:String = StringTools.replace(song, " ", "-").toLowerCase();
 		switch (type)
@@ -180,9 +180,11 @@ class Paths
 			case 'easy':
 				return returnSound('songs', songFormat + '/Voices-easy', null, cache);
 		}
+
+		return null;
 	}
 
-	inline static public function inst(song:String, ?cache:Bool = true, ?type:String = 'none')
+	inline static public function inst(song:String, ?cache:Bool = true, ?type:String = 'none'):Sound
 	{
 		final songFormat:String = StringTools.replace(song, " ", "-").toLowerCase();
 		switch (type)
@@ -194,6 +196,8 @@ class Paths
 			case 'easy':
 				return returnSound('songs', songFormat + '/Inst-easy', null, cache);
 		}
+
+		return null;
 	}
 
 	inline static public function image(key:String, ?library:String):FlxGraphic
