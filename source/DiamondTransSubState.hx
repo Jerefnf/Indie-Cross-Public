@@ -55,7 +55,7 @@ class DiamondTransSubState extends FlxSubState
 		else
 			fadeOut();
 
-		// closeCallback = _closeCallback;
+		closeCallback = _closeCallback;
 	}
 
 	function __fade(from:Float, to:Float, reverse:Bool)
