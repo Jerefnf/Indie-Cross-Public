@@ -232,7 +232,7 @@ class HitboxesAlpha extends Option
 
 	private override function updateDisplay():String
 	{
-		return "hitbox opacity " + Std.int(FlxG.save.data.hitboxOpacity * 100) + "%";
+		return "hitbox opacity";
 	}
 }
 
