@@ -100,11 +100,8 @@ class VlcBitmap extends Bitmap
 		if (hasEventListener(Event.ADDED_TO_STAGE))
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 
-		if (!stage.hasEventListener(Event.ENTER_FRAME))
-			stage.addEventListener(Event.RESIZE, onResize);
-
-		if (!stage.hasEventListener(Event.ENTER_FRAME))
-			stage.addEventListener(Event.ENTER_FRAME, onUpdate);
+		stage.addEventListener(Event.RESIZE, onResize);
+		stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -141,8 +138,6 @@ class VlcBitmap extends Bitmap
 		#if cpp
 		isPlaying = false;
 		libvlc.stop();
-		// if (disposeOnStop)
-		// dispose();
 
 		if (onStop != null)
 			onStop();
@@ -349,7 +344,7 @@ class VlcBitmap extends Bitmap
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	function onUpdate(?e:Event):Void
+	function onEnterFrame(?e:Event):Void
 	{
 		#if cpp
 		checkFlags();
@@ -548,7 +543,7 @@ class VlcBitmap extends Bitmap
 			stage.removeEventListener(Event.RESIZE, onResize);
 
 		if (stage.hasEventListener(Event.ENTER_FRAME))
-			stage.removeEventListener(Event.ENTER_FRAME, onUpdate);
+			stage.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 
 		if (texture != null)
 		{
