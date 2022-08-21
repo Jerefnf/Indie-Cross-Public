@@ -208,7 +208,7 @@ class Paths
 	inline static public function getPackerAtlas(key:String, ?library:String)
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library, true), file('images/$key.txt', library));
 
-	public static function returnGraphic(key:String, ?library:String, ?	:Bool = false):FlxGraphic
+	public static function returnGraphic(key:String, ?library:String, ?gpurender:Bool = false):FlxGraphic
 	{
 		var path:String = getPath('images/$key.png', IMAGE, library);
 		if (OpenFlAssets.exists(path, IMAGE))
