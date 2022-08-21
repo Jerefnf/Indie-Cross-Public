@@ -419,7 +419,7 @@ class CreditsMenu extends MusicBeatState
 		thanksTitle.updateHitbox();
 		thanksTitle.screenCenter(X);
 		thanksTitle.antialiasing = FlxG.save.data.highquality;
-		thanksTitle.alpha = 0.00001;;
+		thanksTitle.alpha = 0.00001;
 		add(thanksTitle);
 
 		lthanks = new FlxText(0, 200, 500, specialThanksMain);
@@ -427,7 +427,7 @@ class CreditsMenu extends MusicBeatState
 		lthanks.alignment = LEFT;
 		lthanks.screenCenter(X);
 		lthanks.x -= 200;
-		lthanks.alpha = 0.00001;;
+		lthanks.alpha = 0.00001;
 		add(lthanks);
 
 		rthanks = new FlxText(0, 200, 500, specialThanksExtra);
@@ -435,7 +435,7 @@ class CreditsMenu extends MusicBeatState
 		rthanks.alignment = RIGHT;
 		rthanks.screenCenter(X);
 		rthanks.x += 200;
-		rthanks.alpha = 0.00001;;
+		rthanks.alpha = 0.00001;
 		add(rthanks);
 
 		updateSelection(0);
