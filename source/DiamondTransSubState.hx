@@ -83,12 +83,12 @@ class DiamondTransSubState extends FlxSubState
 
 	function fadeIn()
 	{
-		__fade(0.0, 1.0, true);
+		__fade(0, 1, true);
 	}
 
 	function fadeOut()
 	{
-		__fade(0.0, 1.0, false);
+		__fade(0, 1, false);
 	}
 
 	function _closeCallback()
