@@ -630,7 +630,7 @@ class FreeplayState extends MusicBeatState
 			if (Achievements.gotAll() || MainMenuState.debugTools)
 			{
 				persistentUpdate = false;
-				openSubState(new Prompt("Would you like to play classic GOSE?"));
+				openSubState(new GosePrompt("Would you like to play classic GOSE?"));
 				Prompt.acceptThing = function()
 				{
 					suffix = '-classic';
