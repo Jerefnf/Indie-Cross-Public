@@ -196,19 +196,19 @@ class Paths
 		}
 	}
 
-	inline static public function image(key:String, ?library:String):FlxGraphic
-		return returnGraphic(key, library);
+	inline static public function image(key:String, ?library:String, ?gpurender:Bool = false):FlxGraphic
+		return returnGraphic(key, library, gpurender);
 
 	inline static public function font(key:String)
 		return 'assets/fonts/$key';
 
 	inline static public function getSparrowAtlas(key:String, ?library:String):FlxAtlasFrames
-		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
+		return FlxAtlasFrames.fromSparrow(image(key, library, true), file('images/$key.xml', library));
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
-		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library, true), file('images/$key.txt', library));
 
-	public static function returnGraphic(key:String, ?library:String):FlxGraphic
+	public static function returnGraphic(key:String, ?library:String, ?	:Bool = false):FlxGraphic
 	{
 		var path:String = getPath('images/$key.png', IMAGE, library);
 		if (OpenFlAssets.exists(path, IMAGE))
@@ -218,27 +218,32 @@ class Paths
 				var newGraphic:FlxGraphic = null;
 				var bitmap:BitmapData = OpenFlAssets.getBitmapData(path);
 
-				switch (FlxG.save.data.render)
+				if (gpurender)
 				{
-					case 1:
-						var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
-						texture.uploadFromBitmapData(bitmap);
-						currentTrackedTextures.set(path, texture);
-						bitmap.dispose();
-						bitmap.disposeImage();
-						bitmap = null;
-						newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
-					case 2:
-						var texture = Lib.current.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
-						texture.uploadFromBitmapData(bitmap);
-						currentTrackedTextures.set(path, texture);
-						bitmap.dispose();
-						bitmap.disposeImage();
-						bitmap = null;
-						newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
-					default:
-						newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
+					switch (FlxG.save.data.render)
+					{
+						case 1:
+							texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+							texture.uploadFromBitmapData(bitmap);
+							currentTrackedTextures.set(path, texture);
+							bitmap.dispose();
+							bitmap.disposeImage();
+							bitmap = null;
+							newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
+						case 2:
+							var texture = Lib.current.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, true);
+							texture.uploadFromBitmapData(bitmap);
+							currentTrackedTextures.set(path, texture);
+							bitmap.dispose();
+							bitmap.disposeImage();
+							bitmap = null;
+							newGraphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
+						default:
+							newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
+					}
 				}
+				else
+					newGraphic = FlxGraphic.fromBitmapData(bitmap, false, path);
 
 				newGraphic.persist = true;
 				currentTrackedAssets.set(path, newGraphic);
