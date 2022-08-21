@@ -206,7 +206,7 @@ class HitboxesAlpha extends Option
                         FlxG.save.data.hitboxOpacity = 0.0;
                 }
 
-                display = updateDisplay; // refresh text
+                display = updateDisplay(); // refresh text
 
                 return true;
         }
@@ -219,7 +219,7 @@ class HitboxesAlpha extends Option
                         FlxG.save.data.hitboxOpacity -= 0.01;
                 }
 
-                display = updateDisplay; // refresh text
+                display = updateDisplay(); // refresh text
 
                 return true;
         }
@@ -269,6 +269,7 @@ class RenderTypes extends Option
                         case 2:
                                 return "gpu openfl render";
                 }
+                return "broken";
 	}
 }
 
