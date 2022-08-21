@@ -72,8 +72,8 @@ class DiamondTransSubState extends FlxSubState
 		trace("fade initiated");
 
 		rect.alpha = 1;
-		shader.progress.value = [from];
-		shader.reverse.value = [reverse];
+		shader[0].shader.data.progress.value = [from];
+		shader[0].shader.data.reverse.value = [reverse];
 
 		tween = FlxTween.num(from, to, duration, {
 			ease: FlxEase.linear,
