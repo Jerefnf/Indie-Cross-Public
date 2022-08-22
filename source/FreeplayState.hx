@@ -626,13 +626,10 @@ class FreeplayState extends MusicBeatState
 
 		if (code == 'gose')
 		{
-			#if android
-			removeVirtualPad();
-			#end
 			if (Achievements.gotAll() || MainMenuState.debugTools)
 			{
 				persistentUpdate = false;
-				openSubState(new GosePrompt("Would you like to play classic GOSE?"));
+				openSubState(new Prompt("Would you like to play classic GOSE?"));
 				Prompt.acceptThing = function()
 				{
 					suffix = '-classic';
