@@ -2968,9 +2968,9 @@ class PlayState extends MusicBeatState
 		{
 			case 'whoopee' | 'satanic-funkin' | 'ritual' | 'bad-time':
 				addAndroidControls(SINGLEDODGE);
-			case 'last-reel':
+			case 'last-reel' | 'despair':
 				addAndroidControls(TRIPLE);
-			case 'knockout' | 'devils-gambit' | 'despair' | 'sansational' | 'burning-in-hell':
+			case 'knockout' | 'devils-gambit' | 'sansational' | 'burning-in-hell':
 				addAndroidControls(DOUBLE);
 			case 'technicolor-tussle':
 				addAndroidControls(SINGLEATTACK);
