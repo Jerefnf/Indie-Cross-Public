@@ -21,14 +21,19 @@ class Paths
 
 	public static var localTrackedAssets:Array<String> = [];
 
+	/// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory()
 	{
+		// clear non local assets in the tracked assets list
 		var counter:Int = 0;
 		for (key in currentTrackedAssets.keys())
 		{
-			if (!localTrackedAssets.contains(key))
+			// if it is not currently contained within the used local assets
+			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key))
 			{
+				// get rid of it
 				var obj = currentTrackedAssets.get(key);
+				@:privateAccess
 				if (obj != null)
 				{
 					var isTexture:Bool = currentTrackedTextures.exists(key);
@@ -39,15 +44,10 @@ class Paths
 						texture = null;
 						currentTrackedTextures.remove(key);
 					}
-					@:privateAccess
-					if (openfl.Assets.cache.hasBitmapData(key))
-					{
-						OpenFlAssets.cache.removeBitmapData(key);
-						OpenFlAssets.cache.clearBitmapData(key);
-						OpenFlAssets.cache.clear(key);
-						FlxG.bitmap._cache.remove(key);
-					}
-					trace('removed $key, ' + (isTexture ? 'is a texture' : 'is not a texture'));
+					OpenFlAssets.cache.removeBitmapData(key);
+					OpenFlAssets.cache.clearBitmapData(key);
+					OpenFlAssets.cache.clear(key);
+					FlxG.bitmap._cache.remove(key);
 					obj.destroy();
 					currentTrackedAssets.remove(key);
 					counter++;
@@ -55,49 +55,56 @@ class Paths
 			}
 		}
 
-		trace('removed $counter assets');
+		// run the garbage collector for good measure lmfao
 		System.gc();
 	}
 
-	public static function clearStoredMemory(?cleanUnused:Bool = false)
+	public static function clearStoredMemory()
 	{
+		// clear anything not in the tracked assets list
+		var counterAssets:Int = 0;
+
 		@:privateAccess
 		for (key in FlxG.bitmap._cache.keys())
 		{
 			var obj = FlxG.bitmap._cache.get(key);
 			if (obj != null && !currentTrackedAssets.exists(key))
 			{
-				@:privateAccess
-				if (openfl.Assets.cache.hasBitmapData(key))
-				{
-					OpenFlAssets.cache.removeBitmapData(key);
-					OpenFlAssets.cache.clearBitmapData(key);
-					OpenFlAssets.cache.clear(key);
-					FlxG.bitmap._cache.remove(key);
-				}
+				OpenFlAssets.cache.removeBitmapData(key);
+				OpenFlAssets.cache.clearBitmapData(key);
+				OpenFlAssets.cache.clear(key);
+				FlxG.bitmap._cache.remove(key);
 				obj.destroy();
+				counterAssets++;
 			}
 		}
 
+		// clear all sounds that are cached
+		var counterSound:Int = 0;
 		for (key in currentTrackedSounds.keys())
+		{
+			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
+			{
+				// trace('test: ' + dumpExclusions, key);
+				OpenFlAssets.cache.removeSound(key);
+				OpenFlAssets.cache.clearSounds(key);
+				currentTrackedSounds.remove(key);
+				counterSound++;
+			}
+		}
+
+		// Clear everything everything that's left
+		var counterLeft:Int = 0;
+		for (key in OpenFlAssets.cache.getKeys())
 		{
 			if (!localTrackedAssets.contains(key) && key != null)
 			{
-				@:privateAccess
-				if (openfl.Assets.cache.hasSound(key))
-				{
-					OpenFlAssets.cache.removeSound(key);
-					OpenFlAssets.cache.clearSounds(key);
-					OpenFlAssets.cache.clear(key);
-				}
-				currentTrackedSounds.remove(key);
+				OpenFlAssets.cache.clear(key);
+				counterLeft++;
 			}
 		}
 
-		for (key in OpenFlAssets.cache.getKeys())
-			if (!localTrackedAssets.contains(key) && key != null)
-				OpenFlAssets.cache.clear(key);
-
+		// flags everything to be cleared out next unused memory clear
 		localTrackedAssets = [];
 	}
 
