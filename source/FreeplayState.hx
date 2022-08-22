@@ -617,7 +617,7 @@ class FreeplayState extends MusicBeatState
 
 	function codeAccepted(code:String)
 	{
-		if (code == '999414666' && (!FlxG.save.data.givenCode || !MainMenuState.debugTools))
+		if (code == '999414666' && (!FlxG.save.data.givenCode || MainMenuState.debugTools))
 			return;
 
 		achievementCheck(code);
