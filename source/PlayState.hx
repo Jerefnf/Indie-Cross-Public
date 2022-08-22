@@ -2966,11 +2966,11 @@ class PlayState extends MusicBeatState
 		#if android
 		switch (PlayState.SONG.song.toLowerCase())
 		{
-			case 'whoopee' | 'satanic-funkin' | 'ritual' | 'bad-time':
+			case 'whoopee' | 'satanic-funkin' | 'ritual':
 				addAndroidControls(SINGLEDODGE);
 			case 'last-reel' | 'despair':
 				addAndroidControls(TRIPLE);
-			case 'knockout' | 'devils-gambit' | 'sansational' | 'burning-in-hell':
+			case 'knockout' | 'devils-gambit' | 'sansational' | 'burning-in-hell' | 'bad-time':
 				addAndroidControls(DOUBLE);
 			case 'technicolor-tussle':
 				addAndroidControls(SINGLEATTACK);
