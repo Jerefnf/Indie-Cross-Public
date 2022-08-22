@@ -422,7 +422,7 @@ class FreeplayState extends MusicBeatState
 
 	var secretCodes:Array<String> = ['gose', 'devilmayquake'];
 	var songNames:Array<Array<String>> = [['gose', 'gose'], ['Fuel', 'face'], ['Saness', 'saness']];
-	var allowedKeys:String = 'abcdefghijklmnopqrstuvwxyzzeroonetwothreefourfivesixseveneightnine';
+	var allowedKeys:String = #if android 'abcdefghijklmnopqrstuvwxyz1234567890' #else 'abcdefghijklmnopqrstuvwxyzzeroonetwothreefourfivesixseveneightnine' #end;
 	var codeBuffer:String = '';
 
 	var curGose:String = '';
@@ -433,9 +433,11 @@ class FreeplayState extends MusicBeatState
 
 	function codeStringFormat(str:String):String
 	{
+		#if !android
 		var numArray:Array<String> = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 		if (numArray.contains(str))
 			return Std.string(numArray.indexOf(str));
+		#end
 		return str;
 	}
 
