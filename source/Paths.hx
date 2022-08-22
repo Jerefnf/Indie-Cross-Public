@@ -29,7 +29,7 @@ class Paths
 		for (key in currentTrackedAssets.keys())
 		{
 			// if it is not currently contained within the used local assets
-			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key))
+			if (!localTrackedAssets.contains(key))
 			{
 				// get rid of it
 				var obj = currentTrackedAssets.get(key);
@@ -83,7 +83,7 @@ class Paths
 		var counterSound:Int = 0;
 		for (key in currentTrackedSounds.keys())
 		{
-			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
+			if (!localTrackedAssets.contains(key) && key != null)
 			{
 				// trace('test: ' + dumpExclusions, key);
 				OpenFlAssets.cache.removeSound(key);
