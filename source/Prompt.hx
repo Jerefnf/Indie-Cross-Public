@@ -79,7 +79,7 @@ class Prompt extends MusicBeatSubstate
 
 		if (!lockInput)
 		{
-			if (controls.BACK #if android || virtualPad.buttonB.justPressed #end)
+			if (controls.BACK #if android || virtualPadAlt.buttonB.justPressed #end)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu', 'preload'));
 				if (backThing != null)
@@ -90,7 +90,7 @@ class Prompt extends MusicBeatSubstate
 				close();
 			}
 
-			if (controls.ACCEPT #if android || virtualPad.buttonA.justPressed #end)
+			if (controls.ACCEPT #if android || virtualPadAlt.buttonA.justPressed #end)
 				acceptThing();
 		}
 	}
