@@ -4246,7 +4246,7 @@ class PlayState extends MusicBeatState
 				|| SONG.song.toLowerCase() == "burning-in-hell"
 				|| SONG.song.toLowerCase() == "nightmare-run")
 				|| SONG.song.toLowerCase() == 'last-reel'
-				&& storyDifficultyText != 'Hard'))
+				&& HelperFunctions.difficultyFromInt(storyDifficulty) != 'Hard'))
 		{
 			FlxG.sound.music.onComplete = partyFinale;
 			FlxG.sound.music.pause();
@@ -11641,7 +11641,7 @@ class PlayState extends MusicBeatState
 							num = 2;
 					}
 
-					if (SONG.song.toLowerCase() == 'last-reel' && storyDifficultyText != 'Hard')
+					if (SONG.song.toLowerCase() == 'last-reel' && HelperFunctions.difficultyFromInt(storyDifficulty) != 'Hard')
 					{
 						num = 2;
 					}
@@ -11652,7 +11652,7 @@ class PlayState extends MusicBeatState
 						FlxG.save.data.freeplaylocked[0] = false;
 						FlxG.save.data.freeplaylocked[1] = false;
 
-						if (storyDifficultyText == 'Hard')
+						if (HelperFunctions.difficultyFromInt(storyDifficulty) == 'Hard')
 						{
 							FlxG.save.data.weeksbeatonhard[num] = true;
 						}
