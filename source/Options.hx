@@ -224,6 +224,7 @@ class HitboxesAlpha extends Option
 
 	public override function press():Bool
 	{
+                display = updateDisplay(); // refresh text
 		return false;
 	}
 
