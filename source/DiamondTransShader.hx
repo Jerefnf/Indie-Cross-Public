@@ -24,10 +24,10 @@ class DiamondTransShader extends FlxShader
         float actualProgress = progress * 2.0;
         
         if (reverse) {
-            if (target < actualProgress) discard;
+            if (target < actualProgress) return;
         }
         else {
-            if (target > actualProgress) discard;
+            if (target > actualProgress) return;
         }
 
         gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
