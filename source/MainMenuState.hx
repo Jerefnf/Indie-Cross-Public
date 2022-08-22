@@ -484,9 +484,6 @@ class MainMenuState extends MusicBeatState
 
 			if (FlxG.keys.justPressed.DELETE #if android || virtualPad.buttonC.justPressed #end)
 			{
-				#if android
-				removeVirtualPad();
-				#end
 				persistentUpdate = false;
 				openSubState(new Prompt("Are you sure you want to erase your save?"));
 				Prompt.acceptThing = function()
