@@ -6,6 +6,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.input.mouse.FlxMouseEventManager;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -357,6 +358,7 @@ class CreditsMenu extends MusicBeatState
 
 			add(smallIcon);
 			smallIcon.ID = i;
+			FlxMouseEventManager.add(smallIcon, null, null, hoverCallback, null, false, true, false);
 
 			credIcons.push(smallIcon);
 		}
@@ -455,6 +457,17 @@ class CreditsMenu extends MusicBeatState
 	var lthanks:FlxText;
 	var rthanks:FlxText;
 
+	function hoverCallback(object:FlxObject)
+	{
+		if (!thanksOpen)
+		{
+			trace("overlap " + object.ID);
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+			updateSelection(object.ID);
+			curIcon = object.ID;
+		}
+	}
+
 	function backOut()
 	{
 		if (thanksOpen)
@@ -548,13 +561,10 @@ class CreditsMenu extends MusicBeatState
 			var smallIcon:FlxSprite = credIcons[i];
 
 			#if android
-			for (touch in FlxG.touches.list)
-			{
-				if ((curIcon == i && touch.overlaps(credIcons[curIcon])) && !thanksOpen)
-					smallIcon.alpha = 1.0;
-				else
-					smallIcon.alpha = 0.5;
-			}
+			if ((curIcon == i && FlxG.mouse.overlaps(credIcons[curIcon])) && !thanksOpen)
+				smallIcon.alpha = 1.0;
+			else
+				smallIcon.alpha = 0.5;
 			#else
 			if ((curIcon == i && FlxG.mouse.overlaps(credIcons[curIcon])) && !thanksOpen)
 			{
