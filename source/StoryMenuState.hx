@@ -405,9 +405,6 @@ class StoryMenuState extends MusicBeatState
 					&& PlayState.isStoryMode
 					&& PlayState.storyDifficulty == curDifficulty)
 				{
-					#if android
-					removeVirtualPad();
-					#end
 					persistentUpdate = false;
 					lockInput = true;
 					openSubState(new Prompt("Would You Like to Resume Your Current Week?"));
