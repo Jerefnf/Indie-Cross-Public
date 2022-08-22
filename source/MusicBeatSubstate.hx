@@ -99,6 +99,7 @@ class MusicBeatSubstate extends FlxSubState
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
 
+		#if !android
 		if (FlxG.keys.anyJustReleased(SoundManager.muteKeys))
 		{
 			SoundManager.toggleMuted();
@@ -111,6 +112,7 @@ class MusicBeatSubstate extends FlxSubState
 		{
 			SoundManager.changeVolume(-0.1);
 		}
+		#end
 
 		super.update(elapsed);
 	}

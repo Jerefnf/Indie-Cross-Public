@@ -172,6 +172,7 @@ class MusicBeatState extends FNFState
 			(cast(Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
 		}
 
+		#if !android
 		if (FlxG.keys.anyJustReleased(SoundManager.muteKeys))
 		{
 			SoundManager.toggleMuted();
@@ -184,6 +185,7 @@ class MusicBeatState extends FNFState
 		{
 			SoundManager.changeVolume(-0.1);
 		}
+		#end
 
 		super.update(elapsed);
 	}
