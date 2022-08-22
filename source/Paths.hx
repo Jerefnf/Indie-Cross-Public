@@ -266,11 +266,13 @@ class Paths
 
 	public static function returnSound(path:String, key:String, ?library:String, ?cache:Bool = true):Sound
 	{
-		var folder:String = '';
-		if (path == 'songs' && library == null)
-			folder = 'songs:';
+		var gottenPath:String;
 
-		var gottenPath:String = folder + getPath('$path/$key.ogg', SOUND, library);
+		if (path == 'songs' && library == null)
+			gottenPath = getPath('$key.ogg', SOUND, 'songs');
+		else
+			gottenPath = getPath('$path/$key.ogg', SOUND, library);
+
 		if (OpenFlAssets.exists(gottenPath, SOUND))
 		{
 			if (!currentTrackedSounds.exists(gottenPath))
