@@ -433,7 +433,7 @@ class FreeplayState extends MusicBeatState
 
 	function codeStringFormat(str:String):String
 	{
-		var numArray:Array<String> = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
+		var numArray:Array<String> = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 		if (numArray.contains(str))
 			return Std.string(numArray.indexOf(str));
 		return str;
