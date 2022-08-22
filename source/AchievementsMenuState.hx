@@ -113,9 +113,6 @@ class AchievementsMenuState extends MusicBeatState
 
 		if (FlxG.keys.justPressed.DELETE #if android || virtualPad.buttonC.justPressed #end)
 		{
-			#if android
-			removeVirtualPad();
-			#end
 			persistentUpdate = false;
 			openSubState(new Prompt("Are you sure you want to clear your achievements?"));
 			Prompt.acceptThing = function()
