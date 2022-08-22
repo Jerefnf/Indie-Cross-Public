@@ -57,7 +57,7 @@ class Prompt extends MusicBeatSubstate
 		text2.alpha = 0.00001;
 
 		#if android
-		addVirtualPad(NONE, A_B);
+		addVirtualPadNoControls(NONE, A_B);
 		virtualPad.alpha = 0.00001;
 		#end
 
@@ -79,22 +79,18 @@ class Prompt extends MusicBeatSubstate
 
 		if (!lockInput)
 		{
-			if (controls.BACK)
+			if (controls.BACK #if android || virtualpad.buttonB.justPressed #end)
 			{
 				FlxG.sound.play(Paths.sound('cancelMenu', 'preload'));
 				if (backThing != null)
 				{
 					backThing();
 				}
-				#if android
-				FNFState.disableNextTransOut = true;
-				FlxG.resetState();
-				#else
+
 				close();
-				#end
 			}
 
-			if (controls.ACCEPT)
+			if (controls.ACCEPT #if android || virtualpad.buttonA.justPressed #end)
 				acceptThing();
 		}
 	}
