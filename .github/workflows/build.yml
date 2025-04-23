@@ -52,9 +52,7 @@ jobs:
           haxelib --quiet install flixel-addons
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git || true
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git || true
-          haxelib run lime setup flixel
           haxelib list
-          haxelib run lime setup project
 
       - name: Create Version Tag File
         run: echo "${{ github.run_id }}" > VERSION
