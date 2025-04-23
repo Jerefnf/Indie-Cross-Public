@@ -50,9 +50,11 @@ jobs:
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git --quiet || true
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git --quiet || true
           haxelib list
+          ls -l $HOME/.local/share/haxelib # Listar el contenido de la carpeta haxelib
 
       - name: Clean Lime
-        run: ~/.local/share/haxelib/bin/lime clean
+        run: # El comando se actualizará después de ver la salida del paso anterior
+          echo "Esperando la ubicación correcta de lime..."
 
       - name: Setup Lime
         run: |
