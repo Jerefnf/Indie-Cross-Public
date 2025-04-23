@@ -50,7 +50,7 @@ jobs:
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git --quiet || true
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git --quiet || true
           haxelib list
-          ls -l $HOME # Listar el contenido de la carpeta home
+          ls -l $HOME/haxelib # Listar el contenido de la carpeta home/list
 
       - name: Clean Lime
         run: $HOME/haxelib/bin/lime clean
