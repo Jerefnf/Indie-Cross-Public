@@ -30,7 +30,6 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-        # java-version ya no es un input válido para v3
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.1.5
@@ -50,10 +49,10 @@ jobs:
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git --quiet || true
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git --quiet || true
           haxelib list
-          ls -l $HOME/haxelib # Listar el contenido de la carpeta home/list
+          haxelib run lime setup project # Asegurarse de que Lime reconozca las librerías
 
-      - name: Clean Lime
-        run: $HOME/haxelib/bin/lime clean
+      - name: Create Version Tag
+        run: echo "${{ github.run_id }}" > VERSION
 
       - name: Setup Lime
         run: |
@@ -65,9 +64,6 @@ jobs:
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
           JAVA_HOME: ${{ env.JAVA_HOME }}
-
-      - name: Create Version Tag
-        run: echo "${{ github.run_id }}" > VERSION
 
       - name: Compile
         run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id }}"
