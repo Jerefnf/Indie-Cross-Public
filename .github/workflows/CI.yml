@@ -50,7 +50,7 @@ jobs:
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git --quiet || true
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git --quiet || true
           haxelib list
-          export PATH="$PATH:$HOME/.local/share/haxelib" # Añadir la ruta de Haxelib al PATH
+          echo "PATH=$PATH:$HOME/.local/share/haxelib" >> $GITHUB_ENV # Añadir al entorno para pasos futuros
           lime clean
           haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
