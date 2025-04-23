@@ -25,13 +25,12 @@ jobs:
         uses: actions/setup-java@v3
         id: setup-java
         with:
-          java-version: '17' # Cambiar a JDK 17
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          java-version: '17' # Intentemos especificar la versión aquí también
+        # java-version ya no es un input válido para v3
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.1.5
@@ -48,7 +47,7 @@ jobs:
           haxelib --quiet --always run lime setup flixel
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
-          haxelib git linc_luajit https://github.com/MAJigsaw77/linc_luajit.git --quiet || true
+          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git --quiet || true
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git --quiet || true
           haxelib list
 
