@@ -29,6 +29,8 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
+        with:
+          java-version: '11' # Asegúrate de agregar esta línea
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.1.5
