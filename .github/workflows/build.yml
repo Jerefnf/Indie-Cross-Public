@@ -1,6 +1,9 @@
 name: Android Build
 
 on:
+  push:
+    branches:
+      - master  # Cambiado a master
   workflow_dispatch:
 
 env:
@@ -39,21 +42,16 @@ jobs:
         with:
           haxe-version: 4.2.5
 
-      # Added step to prepare the haxelib directory
       - name: Prepare Haxelib Directory
         run: |
           mkdir -p $HAXELIB_PATH
-          # Add write permissions - use with caution if security is paramount
-          # but often necessary in CI environments for tools like haxelib
           chmod -R 777 $HAXELIB_PATH || true
-          # Optional: uncomment the line below if you want to clean the directory before setup
-          # rm -rf $HAXELIB_PATH/* || true
 
       - name: Install Required Haxelib Libraries
         run: |
           haxelib setup $HAXELIB_PATH
           haxelib install hxcpp > /dev/null
-          haxelib --quiet install lime
+          haxelib --quiet install lime@8.2.2  # Usar la versión 8.2.2 que debería tener el run script
           haxelib --quiet install openfl
           haxelib --quiet install flixel
           haxelib --quiet install flixel-ui
@@ -64,6 +62,11 @@ jobs:
 
       - name: Create Version Tag File
         run: echo "${{ github.run_id }}" > VERSION
+
+      - name: Verify Permissions
+        run: |
+          chmod +x $HAXELIB_PATH
+          sudo chmod -R 777 $HAXELIB_PATH
 
       - name: Configure Lime Paths
         run: |
