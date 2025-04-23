@@ -28,11 +28,10 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Set JAVA_HOME for Android SDK
-        run: echo "JAVA_HOME=${{ steps.setup-java.outputs.java_home }}" >> $GITHUB_ENV
-
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@v3
+        with:
+          java-version: '11' # Intentemos especificar la versión aquí
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.1.5
