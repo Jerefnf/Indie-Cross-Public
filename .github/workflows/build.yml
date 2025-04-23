@@ -54,9 +54,11 @@ jobs:
         run: |
           haxelib setup $HAXELIB_PATH
           haxelib install hxcpp > /dev/null
-          haxelib --quiet install lime
+          # Try a different version of lime
+          haxelib --quiet install lime 8.2.3 # Or try 7.9.1 or another known stable version
           haxelib --quiet install openfl
           haxelib --quiet install flixel
+          # Keep this line if the setup is confirmed necessary for CI
           haxelib --quiet --always run lime setup flixel
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
