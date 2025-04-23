@@ -50,10 +50,9 @@ jobs:
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git --quiet || true
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git --quiet || true
           haxelib list
-          echo "PATH=$PATH:$HOME/.local/share/haxelib" >> $GITHUB_ENV
 
       - name: Clean Lime
-        run: lime clean
+        run: ~/.local/share/haxelib/bin/lime clean
 
       - name: Setup Lime
         run: |
