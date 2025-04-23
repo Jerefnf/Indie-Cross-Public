@@ -10,8 +10,6 @@ on:
 jobs:
   buildAndroid:
     runs-on: ubuntu-latest
-    env:
-      ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
     steps:
       - name: Checkout
@@ -61,6 +59,9 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          JAVA_HOME: ${{ env.JAVA_HOME }}
 
       - name: Compile
         run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id }}"
