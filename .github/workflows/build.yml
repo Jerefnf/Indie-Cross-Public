@@ -2,21 +2,15 @@ name: Android Build
 
 on:
   push:
-    branches:
-      - master  # Cambiado a master
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   workflow_dispatch:
-
-env:
-  HAXELIB_PATH: ~/haxelib
 
 jobs:
   buildAndroid:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash
-
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -32,7 +26,7 @@ jobs:
         id: setup-java
         with:
           java-version: '17'
-          distribution: temurin
+          distribution: 'temurin'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -42,37 +36,29 @@ jobs:
         with:
           haxe-version: 4.2.5
 
-      - name: Prepare Haxelib Directory
+      - name: Install Haxelib
         run: |
-          mkdir -p $HAXELIB_PATH
-          chmod -R 777 $HAXELIB_PATH || true
-
-      - name: Install Required Haxelib Libraries
-        run: |
-          haxelib setup $HAXELIB_PATH
+          haxelib setup ~/haxelib
           haxelib install hxcpp > /dev/null
-          haxelib --quiet install lime@8.2.2  # Usar la versión 8.2.2 que debería tener el run script
+          haxelib --quiet install lime
           haxelib --quiet install openfl
-          haxelib --quiet install flixel
+          haxelib install flixel
+          haxelib --quiet --always run lime setup flixel
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
-          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git || true
-          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git || true
+          haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git --quiet || true
+          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git --quiet || true
           haxelib list
-
+          haxelib run lime setup project # Asegurarse de que Lime reconozca las librerías
+          
       - name: Create Version Tag File
         run: echo "${{ github.run_id }}" > VERSION
-
-      - name: Verify Permissions
-        run: |
-          chmod +x $HAXELIB_PATH
-          sudo chmod -R 777 $HAXELIB_PATH
 
       - name: Configure Lime Paths
         run: |
           haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
-          haxelib run lime config ANDROID_NDK_ROOT ${{ steps.setup-ndk.outputs.ndk-path }}
+          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
 
@@ -83,7 +69,7 @@ jobs:
         run: ls -l export/release/android/bin/app/build/outputs/apk/debug
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: androidBuild
           path: export/release/android/bin/app/build/outputs/apk/debug
