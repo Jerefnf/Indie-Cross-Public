@@ -25,13 +25,13 @@ jobs:
         uses: actions/setup-java@v3
         id: setup-java
         with:
-          java-version: '11'
+          java-version: '17' # Cambiar a JDK 17
           distribution: 'temurin'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          java-version: '11' # Intentemos especificar la versión aquí
+          java-version: '17' # Intentemos especificar la versión aquí también
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.1.5
