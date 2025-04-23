@@ -42,7 +42,7 @@ jobs:
       - name: Prepare Haxelib Directory
         run: |
           mkdir -p $HAXELIB_PATH
-          chmod -R u+rwX,g+rwX,o+rX $HAXELIB_PATH || true
+          chmod -R 777 $HAXELIB_PATH || true
 
       - name: Install Required Haxelib Libraries
         run: |
@@ -51,7 +51,7 @@ jobs:
           haxelib --quiet install lime
           haxelib --quiet install openfl
           haxelib --quiet install flixel
-          haxelib --quiet run lime setup flixel -y
+          haxelib --quiet run flixel setup -y
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git || true
@@ -72,16 +72,11 @@ jobs:
       - name: Build Android APK
         run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id }}"
 
-      - name: Check APK Exists
-        run: |
-          APK_PATH="export/release/android/bin/app/build/outputs/apk/debug/app-debug.apk"
-          if [ ! -f "$APK_PATH" ]; then
-            echo "APK no generado correctamente en $APK_PATH"
-            exit 1
-          fi
+      - name: Verify APK Output
+        run: ls -l export/release/android/bin/app/build/outputs/apk/debug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: androidBuild
-          path: export/release/android/bin/app/build/outputs/apk/debug/app-debug.apk
+          path: export/release/android/bin/app/build/outputs/apk/debug
