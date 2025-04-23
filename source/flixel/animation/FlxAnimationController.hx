@@ -151,6 +151,12 @@ class FlxAnimationController implements IFlxDestroyable
 		callback = null;
 		_sprite = null;
 	}
+	
+		@:allow(flixel.animation.FlxAnimation)
+	function getFrameDuration(index:Int)
+	{
+		return _sprite.frames.frames[index].duration;
+	}
 
 	function clearPrerotated():Void
 	{
@@ -665,14 +671,23 @@ class FlxAnimationController implements IFlxDestroyable
 	}
 
 	@:allow(flixel.animation)
-	inline function fireFinishCallback(?name:String):Void
+	@:haxe.warning("-WDeprecated")
+	function fireFinishCallback(?name:String):Void
 	{
 		if (finishCallback != null)
 		{
 			finishCallback(name);
 		}
+		
+		onFinish.dispatch(name);
 	}
 
+	@:allow(flixel.animation)
+	function fireLoopCallback(?name:String):Void
+	{
+		onLoop.dispatch(name);
+	}
+	
 	function byNamesHelper(AddTo:Array<Int>, FrameNames:Array<String>):Void
 	{
 		for (frameName in FrameNames)
