@@ -63,15 +63,12 @@
 
 	<!-- _____________________________ Haxelib Versions __________________________ -->
 
-	<haxelib name="lime" version="7.9.0" />
-	<haxelib name="openfl" version="8.9.7" />
-	<haxelib name="flixel" version="5.2.0" />
-	<haxelib name="flixel-ui" version="2.3.3" />
-	<haxelib name="flixel-addons" version="2.11.0" />
-	<haxelib name="hxcpp" />
+	<haxelib name="flixel" />
+	<haxelib name="flixel-addons" />
+	<haxelib name="flixel-ui" />
+	<haxelib name="discord_rpc" if="desktop"/>
 	<haxelib name="linc_luajit" if="cpp"/>
 	<haxelib name="extension-androidtools" if="android"/>
-	<haxelib name="discord_rpc" if="desktop"/>
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
