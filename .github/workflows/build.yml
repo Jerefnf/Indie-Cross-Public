@@ -43,12 +43,13 @@ jobs:
         run: |
           mkdir -p $HAXELIB_PATH
           haxelib setup $HAXELIB_PATH
-          haxelib install lime 7.9.0
+          haxelib install lime || haxelib install lime 7.9.0
           haxelib install openfl 8.9.7
-          haxelib install flixel 4.11.0
+          haxelib install flixel 5.2.0
           haxelib install flixel-ui 2.3.3
           haxelib install flixel-addons 2.11.0
           haxelib install hxcpp
+          
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git || true
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools.git || true
           haxelib list
