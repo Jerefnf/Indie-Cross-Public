@@ -70,7 +70,7 @@ jobs:
         run: ls -l export/release/android/bin/app/build/outputs/apk/debug
 
       - name: Publish Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: androidBuild
           path: export/release/android/bin/app/build/outputs/apk/debug
