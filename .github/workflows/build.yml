@@ -39,27 +39,19 @@ jobs:
         with:
           haxe-version: 4.2.5
 
-      # Added step to prepare the haxelib directory
       - name: Prepare Haxelib Directory
         run: |
           mkdir -p $HAXELIB_PATH
-          # Add write permissions - use with caution if security is paramount
-          # but often necessary in CI environments for tools like haxelib
-          chmod -R 777 $HAXELIB_PATH || true
-          # Optional: uncomment the line below if you want to clean the directory before setup
-          # rm -rf $HAXELIB_PATH/* || true
-
+          chmod -R u+rwX,g+rwX,o+rX $HAXELIB_PATH || true
 
       - name: Install Required Haxelib Libraries
         run: |
           haxelib setup $HAXELIB_PATH
           haxelib install hxcpp > /dev/null
-          # Try a different version of lime
-          haxelib --quiet install lime 8.2.3 # Or try 7.9.1 or another known stable version
+          haxelib --quiet install lime
           haxelib --quiet install openfl
           haxelib --quiet install flixel
-          # Keep this line if the setup is confirmed necessary for CI
-          haxelib --quiet --always run lime setup flixel
+          haxelib --quiet run lime setup flixel -y
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git || true
@@ -80,11 +72,16 @@ jobs:
       - name: Build Android APK
         run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id }}"
 
-      - name: Verify APK Output
-        run: ls -l export/release/android/bin/app/build/outputs/apk/debug
+      - name: Check APK Exists
+        run: |
+          APK_PATH="export/release/android/bin/app/build/outputs/apk/debug/app-debug.apk"
+          if [ ! -f "$APK_PATH" ]; then
+            echo "APK no generado correctamente en $APK_PATH"
+            exit 1
+          fi
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: androidBuild
-          path: export/release/android/bin/app/build/outputs/apk/debug
+          path: export/release/android/bin/app/build/outputs/apk/debug/app-debug.apk
