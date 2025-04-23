@@ -65,7 +65,7 @@
 
 	<haxelib name="lime" version="7.9.0" />
 	<haxelib name="openfl" version="8.9.7" />
-	<haxelib name="flixel" version="4.11.0" />
+	<haxelib name="flixel" version="5.2.0" />
 	<haxelib name="flixel-ui" version="2.3.3" />
 	<haxelib name="flixel-addons" version="2.11.0" />
 	<haxelib name="hxcpp" />
