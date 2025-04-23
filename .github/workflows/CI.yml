@@ -53,8 +53,7 @@ jobs:
           ls -l $HOME # Listar el contenido de la carpeta home
 
       - name: Clean Lime
-        run: # El comando se actualizará después de ver la salida del paso anterior
-          echo "Esperando la ubicación correcta de lime..."
+        run: $HOME/haxelib/bin/lime clean
 
       - name: Setup Lime
         run: |
