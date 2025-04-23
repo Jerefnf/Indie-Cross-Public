@@ -39,10 +39,15 @@ jobs:
         with:
           haxe-version: 4.2.5
 
+      # Added step to prepare the haxelib directory
       - name: Prepare Haxelib Directory
         run: |
           mkdir -p $HAXELIB_PATH
+          # Add write permissions - use with caution if security is paramount
+          # but often necessary in CI environments for tools like haxelib
           chmod -R 777 $HAXELIB_PATH || true
+          # Optional: uncomment the line below if you want to clean the directory before setup
+          # rm -rf $HAXELIB_PATH/* || true
 
       - name: Install Required Haxelib Libraries
         run: |
@@ -51,7 +56,6 @@ jobs:
           haxelib --quiet install lime
           haxelib --quiet install openfl
           haxelib --quiet install flixel
-          haxelib --quiet run flixel setup -y
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
           haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit.git || true
